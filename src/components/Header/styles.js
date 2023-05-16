@@ -11,7 +11,6 @@ export const StyledToolbar = styled(Toolbar)({
   export const StyledList = styled(List)(({ theme }) => ({
     display: "flex",
     flexDirection: "row",
-    justifyContent: "space-between",
     padding: 0,
     paddingLeft: "1em",
     [theme.breakpoints.down("sm")]: {

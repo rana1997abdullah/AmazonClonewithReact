@@ -1,13 +1,11 @@
 import React, { useState } from "react";
-import { styled, alpha } from "@mui/material/styles";
-import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 
-import { List, ListItem } from "@mui/material";
+import { Box } from "@mui/material";
 import DrawerCmp from "./Drawer";
-import {StyledItem,StyledList,StyledToolbar} from './styles';
+import { StyledItem, StyledList, StyledToolbar } from "./styles";
 
 const HeaderList = [
   "Today's Deals",
@@ -16,7 +14,7 @@ const HeaderList = [
   "Gift Cards",
   "Sell",
 ];
- const InnerHeader=()=> {
+const InnerHeader = () => {
   const [open, setState] = useState(false);
 
   const toggleDrawer = (open) => (event) => {
@@ -28,10 +26,9 @@ const HeaderList = [
     }
     setState(open);
   };
-  
 
   return (
-    <StyledToolbar>
+    <StyledToolbar sx={{ flexGrow: 1 }}>
       <IconButton
         edge="start"
         color="inherit"
@@ -42,17 +39,21 @@ const HeaderList = [
       </IconButton>
 
       <Typography variant="h6">All</Typography>
-      <StyledList>
-        {HeaderList.map((el) => {
-          return <StyledItem>{el}</StyledItem>;
-        })}
-      </StyledList>
+      <Box sx={{ flex: 1 }}>
+        <StyledList sx={{ flexGrow: 1 }}>
+          {HeaderList.map((el) => {
+            return (
+              <>
+                <StyledItem>{el}</StyledItem>
+              </>
+            );
+          })}
+        </StyledList>
+      </Box>
+      <StyledItem>Shop deals in Electronics</StyledItem>
 
-      <DrawerCmp open={open} 
-      toggleDrawer={toggleDrawer}
-      
-      />
+      <DrawerCmp open={open} toggleDrawer={toggleDrawer} />
     </StyledToolbar>
   );
-}
+};
 export default InnerHeader;
