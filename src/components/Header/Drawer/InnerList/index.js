@@ -10,6 +10,7 @@ import { StyledInnerBox,
   StyledMainTypography,
 StyledAllBox,StyledLangText,StyledListItemButtonFlex,StyledListItemButtonInner,StyledListItemText
 } from "./styles";
+import { useState } from "react";
 
 const InnerList = ({ data, loggedIn }) => {
 
@@ -21,7 +22,7 @@ const InnerList = ({ data, loggedIn }) => {
             <ListItemText
               primary={<StyledMainTypography>{el}</StyledMainTypography>}
             />
-            {Object.values(data[el]).map((ele) => (
+            {Object.values(data[el]).slice(0,4).map((ele) => (
               <StyledListItemButtonInner key={ele}>
                 <StyledListItemText primary={ele} />
             {el !== "Trending" &&   <KeyboardArrowRightIcon
