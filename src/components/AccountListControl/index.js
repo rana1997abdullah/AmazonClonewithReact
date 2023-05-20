@@ -38,11 +38,11 @@ const AccountListControl = ({ signin = false }) => {
           <Typography>Your Account</Typography>
           <List>
             {accountdataList.map((item) => {
-              return <StyledListItem>{item}</StyledListItem>;
+              return <StyledListItem key={item}>{item}</StyledListItem>;
             })}
             {signin &&
               withSignIn.map((item) => {
-                return <StyledListItem>{item}</StyledListItem>;
+                return <StyledListItem key={item}>{item}</StyledListItem>;
               })}
           </List>
         </StyledColumnFlexBox>

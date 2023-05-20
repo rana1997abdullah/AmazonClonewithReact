@@ -7,6 +7,10 @@ import { Box } from "@mui/material";
 import DrawerCmp from "./Drawer";
 import { StyledItem, StyledList, StyledToolbar } from "./styles";
 
+import StartFirebase from "../firebase/index";
+import { useEffect} from "react";
+import { onValue, ref } from "firebase/database";
+
 const HeaderList = [
   "Today's Deals",
   "Customer Service",
@@ -16,6 +20,14 @@ const HeaderList = [
 ];
 const InnerHeader = () => {
   const [open, setState] = useState(false);
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    const startRef = ref(StartFirebase(), "Categories");
+    onValue(startRef, (snapshot) => {
+      const res = snapshot.val();
+      setData(res);
+    });
+  }, []);
 
   const toggleDrawer = (open) => (event) => {
     if (
@@ -43,16 +55,14 @@ const InnerHeader = () => {
         <StyledList sx={{ flexGrow: 1 }}>
           {HeaderList.map((el) => {
             return (
-              <>
-                <StyledItem>{el}</StyledItem>
-              </>
+                <StyledItem key={el}>{el}</StyledItem> 
             );
           })}
         </StyledList>
       </Box>
       <StyledItem>Shop deals in Electronics</StyledItem>
 
-      <DrawerCmp open={open} toggleDrawer={toggleDrawer} />
+      <DrawerCmp open={open} toggleDrawer={toggleDrawer} data={data} />
     </StyledToolbar>
   );
 };
