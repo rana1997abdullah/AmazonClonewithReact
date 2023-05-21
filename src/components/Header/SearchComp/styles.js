@@ -1,18 +1,17 @@
-import { Box, InputBase, Select, styled } from "@mui/material";
+import { Box, InputBase, Select, styled,Autocomplete } from "@mui/material";
 
 export const Search = styled("div")(({ theme }) => ({
     position: "relative",
     borderRadius: theme.shape.borderRadius,
-    backgroundColor: theme.palette.common.white,
     display: "flex",
     marginRight: theme.spacing(2),
     marginLeft: 0,
-    [theme.breakpoints.up("sm")]: {
+   [theme.breakpoints.up("sm")]: {
       marginLeft: theme.spacing(3),
       width: "auto",
-    },
+    }, 
   }));
-  export const SearchIconWrapper = styled("div")(({ theme }) => ({
+  export const SearchIconWrapper = styled(Box)(({ theme }) => ({
     backgroundColor: "#febd69",
     display: "flex",
     alignItems: "center",
@@ -21,6 +20,10 @@ export const Search = styled("div")(({ theme }) => ({
     borderRadius: "0px 4px 4px 0px",
     paddingLeft: "0.4em",
     paddingRight: "0.4em",
+    "&:hover":{
+      boxShadow: "0 0 0 2px #f90,0 0 0 3px rgba(255,153,0,0.5)",
+      border: 0,
+    },
   }));
   
   export const AllSelect = styled(Select)(({ theme }) => ({
@@ -52,24 +55,40 @@ export const Search = styled("div")(({ theme }) => ({
   
   export const StyledInputBase = styled(InputBase)(({ theme }) => ({
     color: "black",
-    "& .MuiInputBase-input": {
       padding: theme.spacing(1, 1, 1, 1),
       transition: theme.transitions.create("width"),
       width: "100%",
       [theme.breakpoints.up("md")]: {
         width: "100%",
       },
-    },
-    "&.MuiInputBase-root": {
       minWidth: "600px",
       [theme.breakpoints.down("lg")]: {
         minWidth: "auto",
       },
-    },
+      "&.MuiAutocomplete-input MuiAutocomplete-inputFocused":{
+        boxShadow: "0 0 0 2px #f90,0 0 0 3px rgba(255,153,0,0.5)",
+        border:0
+      },
+      "&:focus":{
+        boxShadow: "0 0 0 2px #f90,0 0 0 3px rgba(255,153,0,0.5)",
+        border: 0,
+      },
+    // },
+    backgroundColor:'white'
   }));
  export  const StyledBox = styled(Box)({
     display: "flex",
     alignItems: "center",
   });
+export const StyledAutoComplete = styled(Autocomplete)({
+  display: "inline-block",
+  height: "40px",
+  border: 0,
+  "& input": {
+    bgcolor: "background.paper",
 
+    color: (theme) =>
+      theme.palette.getContrastText(theme.palette.background.paper),
+  },
+});
   

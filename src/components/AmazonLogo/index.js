@@ -1,7 +1,7 @@
 import { Typography, Box, styled } from "@mui/material";
 
 const StyledLogoBox = styled(Box)({
-  height: 50,
+  height: 40,
   width: 70,
   objectFit: "contain",
 });

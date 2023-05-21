@@ -1,40 +1,46 @@
-
 import ListItemText from "@mui/material/ListItemText";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import LanguageIcon from "@mui/icons-material/Language";
 import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import Divider from "@mui/material/Divider";
 import Flag from "react-world-flags";
-import { StyledInnerBox, 
-  StyledMainItemButton, 
+import {
+  StyledInnerBox,
+  StyledMainItemButton,
   StyledMainTypography,
-StyledAllBox,StyledLangText,StyledListItemButtonFlex,StyledListItemButtonInner,StyledListItemText
+  StyledAllBox,
+  StyledLangText,
+  StyledListItemButtonFlex,
+  StyledListItemButtonInner,
+  StyledListItemText,
 } from "./styles";
-import { useState } from "react";
+import { Box } from "@mui/material";
 
 const InnerList = ({ data, loggedIn }) => {
-
   return (
     <StyledInnerBox>
       {Object.keys(data).map((el, index) => (
-     <>
+        <Box key={el}>
           <StyledMainItemButton key={el}>
             <ListItemText
               primary={<StyledMainTypography>{el}</StyledMainTypography>}
             />
-            {Object.values(data[el]).slice(0,4).map((ele) => (
-              <StyledListItemButtonInner key={ele}>
-                <StyledListItemText primary={ele} />
-            {el !== "Trending" &&   <KeyboardArrowRightIcon
-                  color="disabled"
-                  sx={{ paddingRight: "1em" }}
-                />
-            }
-              </StyledListItemButtonInner>
-            ))}
+            {Object.values(data[el])
+              .slice(0, 4)
+              .map((ele) => (
+                <StyledListItemButtonInner key={ele}>
+                  <StyledListItemText primary={ele} />
+                  {el !== "Trending" && (
+                    <KeyboardArrowRightIcon
+                      color="disabled"
+                      sx={{ paddingRight: "1em" }}
+                    />
+                  )}
+                </StyledListItemButtonInner>
+              ))}
           </StyledMainItemButton>
           {(index == 1 || index == 2) && (
-            <StyledAllBox>
+            <StyledAllBox key={index}>
               <StyledListItemText
                 sx={{ paddingRight: "0" }}
                 primary="See All"
@@ -49,7 +55,7 @@ const InnerList = ({ data, loggedIn }) => {
             variant="middle"
             sx={{ marginBottom: "1em", marginTop: "0.5em" }}
           />
-        </>
+        </Box>
       ))}
 
       <StyledMainItemButton>

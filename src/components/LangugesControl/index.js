@@ -1,18 +1,21 @@
-import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import { Typography, Link, Divider, Radio, Button } from "@mui/material";
-import { styled } from "@mui/material/styles";
+import { Divider, Radio } from "@mui/material";
 import styles from "./index.module.css";
 import { Languages } from "../languages";
 import SharedLink from "../StyledLink";
 import Flag from "react-world-flags";
-import {StyledRadioGroup,StyledButton,
-  StyledSubTitle,StyledChangeLink,BpCheckedIcon,BpIcon} from './styles';
+import {
+  StyledRadioGroup,
+  StyledButton,
+  StyledSubTitle,
+  StyledChangeLink,
+  BpCheckedIcon,
+  BpIcon,
+} from "./styles";
 
 const LanguagesControl = (props) => {
- 
   function BpRadio(props) {
     return (
       <Radio
@@ -41,7 +44,7 @@ const LanguagesControl = (props) => {
       >
         {Object.values(Languages).map((lang, index) => {
           return (
-            <div className={styles.labelDiv}>
+            <div className={styles.labelDiv} key={lang}>
               <FormControlLabel
                 value={lang}
                 control={<BpRadio />}
