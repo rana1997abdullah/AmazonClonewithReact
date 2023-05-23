@@ -55,7 +55,9 @@ const InnerHeader = () => {
         <StyledList sx={{ flexGrow: 1 }}>
           {HeaderList.map((el) => {
             return (
-                <StyledItem key={el}>{el}</StyledItem> 
+              
+                <StyledItem key={el}>{el}</StyledItem>
+             
             );
           })}
         </StyledList>

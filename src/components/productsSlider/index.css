@@ -1,0 +1,56 @@
+.slick-next {
+    right: 20px;
+    border-radius: 3px 0 0 3px;
+}
+
+.slick-prev {
+    left: 0px;
+    z-index: 2;
+    color: #888;
+    border-radius: 0 3px 3px 0;
+}
+
+.slick-prev,
+.slick-next {
+    color: #888;
+    background-color: #fff;
+    right: -1px;
+
+}
+
+.slick-prev:hover,
+.slick-next:hover {
+    color: #888;
+    background-color: #fff;
+}
+
+.slider {
+    margin-top: 1.5em;
+    flex-wrap: wrap;
+    padding-left: 2em;
+}
+
+
+
+.product {
+    margin: 1em;
+    height: auto;
+    margin-top: 2em;
+    width: auto;
+    max-width: 270px;
+    max-height: 200px;
+    vertical-align: middle;
+}
+
+.product_content {
+    justify-content: center;
+    display: flex;
+}
+
+
+.product_image {
+    mix-blend-mode: multiply;
+    filter: contrast(1);
+    width: auto;
+    margin: 1em;
+}
