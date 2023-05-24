@@ -14,10 +14,10 @@ import {
 import StartFirebase from "../../firebase/index";
 import { onValue, ref } from "firebase/database";
 
-const SearchComp = ({ data }) => {
+const SearchComp = ({ data, setBackgroundBody }) => {
   const [categoryType, setcategoryType] = useState("");
   const [dataa, setData] = useState([]);
-
+  const [selectedValue, setSelectedValue] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   let arr = [];
   useEffect(() => {
@@ -48,7 +48,16 @@ const SearchComp = ({ data }) => {
   const handleChange = (event) => {
     setcategoryType(event.target.value);
   };
-
+  const handleClick = () => {
+    console.log("selectedValue");
+    if (!selectedValue)
+      // setFilteredData(filteredData.filter(el=>el.category.toLowerCase().includes(categoryType)))
+      console.log(
+        filteredData.filter((el) =>
+          el.category.toLowerCase().includes(categoryType.toLowerCase())
+        )
+      );
+  };
   return (
     <StyledBox>
       <Search>
@@ -74,6 +83,8 @@ const SearchComp = ({ data }) => {
         <StyledAutoComplete
           id="custom-input-demo"
           options={filteredData.map((el) => el.title)}
+          onChange={(e, value) => setSelectedValue(value)}
+          onClick={handleClick}
           renderInput={(params) => (
             <div
               ref={params.InputProps.ref}
@@ -85,10 +96,13 @@ const SearchComp = ({ data }) => {
             >
               <StyledInputBase
                 type="text"
+                onClick={() => setBackgroundBody("transparent")}
+                onChange={() => setBackgroundBody("rgba(0,0,0,.8)")}
+                onBlur={() => setBackgroundBody("red")}
                 {...params.inputProps}
                 placeholder="Search Amazon"
               />
-              <SearchIconWrapper>
+              <SearchIconWrapper onClick={handleClick}>
                 <SearchIcon />
               </SearchIconWrapper>
             </div>

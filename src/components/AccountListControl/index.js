@@ -1,9 +1,4 @@
-import {
-  Box,
-  Divider,
-  List,
-  Typography,
-} from "@mui/material";
+import { Box, Divider, List, Typography } from "@mui/material";
 import SharedLink from "../StyledLink";
 import { accountdataList, withSignIn } from "./accountdataList";
 
@@ -15,15 +10,38 @@ import {
   StyledInnerColumnBox,
   StyledFlexBox,
 } from "./styles";
-const AccountListControl = ({ signin = false }) => {
+import { signOut } from "firebase/auth";
+import { StartAuth } from "../firebase";
+import { useNavigate } from "react-router-dom";
+const AccountListControl = ({ loggedIn = false }) => {
+  const navigate = useNavigate();
+  const handleLogout = (e, item) => {
+    e.preventDefault();
+    if (item == "Sign out")
+      signOut(StartAuth())
+        .then(() => {
+          // Sign-out successful.
+          navigate("/home", { state: { loggedIn: false } });
+          console.log("Signed out successfully");
+        })
+        .catch((error) => {
+          // An error happened.
+        });
+  };
+  const handleClick = (e) => {
+    e.preventDefault();
+    navigate("/login");
+  };
   return (
     <StyledBasicFlexBox>
-      <Box>
-        <StyledSigninButton>Sign in</StyledSigninButton>
-        <Typography>
-          New Customer? <SharedLink title={"Start Here"} />
-        </Typography>
-      </Box>
+      {!loggedIn && (
+        <Box>
+          <StyledSigninButton onClick={handleClick}>Sign in</StyledSigninButton>
+          <Typography>
+            New Customer? <SharedLink title={"Start Here"} />
+          </Typography>
+        </Box>
+      )}
       <Divider variant="middle" flexItem />
       <StyledFlexBox>
         <StyledInnerColumnBox>
@@ -38,11 +56,22 @@ const AccountListControl = ({ signin = false }) => {
           <Typography>Your Account</Typography>
           <List>
             {accountdataList.map((item) => {
-              return <StyledListItem key={item}>{item}</StyledListItem>;
+              return (
+                <StyledListItem key={item}>
+                  <SharedLink title={item} />
+                </StyledListItem>
+              );
             })}
-            {signin &&
+            {loggedIn &&
               withSignIn.map((item) => {
-                return <StyledListItem key={item}>{item}</StyledListItem>;
+                return (
+                  <StyledListItem
+                    key={item}
+                    onClick={(e) => handleLogout(e, item)}
+                  >
+                    <SharedLink title={item} />
+                  </StyledListItem>
+                );
               })}
           </List>
         </StyledColumnFlexBox>

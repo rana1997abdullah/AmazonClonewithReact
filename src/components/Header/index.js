@@ -1,4 +1,4 @@
-import { AppBar, Toolbar, Box, MenuItem, Card } from "@mui/material";
+import { AppBar, Toolbar, Box } from "@mui/material";
 
 import { styled } from "@mui/material/styles";
 
@@ -23,20 +23,18 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     rowGap: "1em",
   },
   columnGap: "0.2em",
-  [theme.breakpoints.up("md")]:{
-    columnGap:'0.2em'
+  [theme.breakpoints.up("md")]: {
+    columnGap: "0.2em",
   },
-  [theme.breakpoints.up("lg")]:{
-    columnGap:'0.1em'
+  [theme.breakpoints.up("lg")]: {
+    columnGap: "0.1em",
   },
-  [theme.breakpoints.up("xl")]:{
-    columnGap:'2em'
+  [theme.breakpoints.up("xl")]: {
+    columnGap: "2em",
   },
-
-
 }));
 
-const Header = ({ loggedin = false, username = "rana" }) => {
+const Header = ({ loggedIn = false, username, setBackgroundBody }) => {
   const [data, setData] = useState([]);
   useEffect(() => {
     const startRef = ref(StartFirebase(), "Categories");
@@ -55,9 +53,11 @@ const Header = ({ loggedin = false, username = "rana" }) => {
               <AmazonLogo />
             </StyledHeaderLink>
             <LocationNav />
-            <SearchComp data={data} />
+            <SearchComp data={data} setBackgroundBody={setBackgroundBody} />
             <LangNav />
-            <AccountNav loggedin={loggedin} username={username} />
+            <Box sx={{ flexGrow: 0.4 }} />
+            <AccountNav loggedIn={loggedIn} username={username} />
+            <Box sx={{ flexGrow: 0.4 }} />
             <OrdersNav />
             <CartNav />
           </StyledToolbar>

@@ -15,8 +15,29 @@ import {
   StyledListItemText,
 } from "./styles";
 import { Box } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import { signOut } from "firebase/auth";
+import { StartAuth } from "../../../firebase";
 
 const InnerList = ({ data, loggedIn }) => {
+  const navigate = useNavigate();
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (loggedIn)
+      signOut(StartAuth())
+        .then(() => {
+          // Sign-out successful.
+          navigate("/home", { state: { loggedIn: false } });
+          console.log("Signed out successfully");
+        })
+        .catch((error) => {
+          // An error happened.
+        });
+    else if (!loggedIn) {
+      navigate("/login");
+    }
+  };
   return (
     <StyledInnerBox>
       {Object.keys(data).map((el, index) => (
@@ -78,7 +99,10 @@ const InnerList = ({ data, loggedIn }) => {
         <StyledListItemText primary="Customer Service" />
       </StyledListItemButtonInner>
       <StyledListItemButtonInner>
-        <StyledListItemText primary={!loggedIn ? "Sign in" : "Sign out"} />
+        <StyledListItemText
+          primary={!loggedIn ? "Sign in" : "Sign out"}
+          onClick={(e) => handleClick(e)}
+        />
       </StyledListItemButtonInner>
     </StyledInnerBox>
   );

@@ -8,7 +8,7 @@ import DrawerCmp from "./Drawer";
 import { StyledItem, StyledList, StyledToolbar } from "./styles";
 
 import StartFirebase from "../firebase/index";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { onValue, ref } from "firebase/database";
 
 const HeaderList = [
@@ -18,7 +18,7 @@ const HeaderList = [
   "Gift Cards",
   "Sell",
 ];
-const InnerHeader = () => {
+const InnerHeader = ({ loggedIn, username }) => {
   const [open, setState] = useState(false);
   const [data, setData] = useState([]);
   useEffect(() => {
@@ -54,17 +54,19 @@ const InnerHeader = () => {
       <Box sx={{ flex: 1 }}>
         <StyledList sx={{ flexGrow: 1 }}>
           {HeaderList.map((el) => {
-            return (
-              
-                <StyledItem key={el}>{el}</StyledItem>
-             
-            );
+            return <StyledItem key={el}>{el}</StyledItem>;
           })}
         </StyledList>
       </Box>
       <StyledItem>Shop deals in Electronics</StyledItem>
 
-      <DrawerCmp open={open} toggleDrawer={toggleDrawer} data={data} />
+      <DrawerCmp
+        open={open}
+        toggleDrawer={toggleDrawer}
+        data={data}
+        loggedIn={loggedIn}
+        username={username}
+      />
     </StyledToolbar>
   );
 };
