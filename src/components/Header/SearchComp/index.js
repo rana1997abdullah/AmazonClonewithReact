@@ -1,4 +1,4 @@
-import { Box, FormControl } from "@mui/material";
+import { FormControl } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import MenuItem from "@mui/material/MenuItem";
 import { useState, useEffect } from "react";
@@ -33,63 +33,69 @@ const SearchComp = ({ data }) => {
     const startRef = ref(StartFirebase(), "Products");
     onValue(startRef, (snapshot) => {
       const res = snapshot.val();
-      setFilteredData(res);
+      {
+        categoryType
+          ? setFilteredData(
+              res.filter(
+                (el) => el.category.toLowerCase() === categoryType.toLowerCase()
+              )
+            )
+          : setFilteredData(res);
+      }
     });
-  }, []);
+  }, [categoryType]);
 
   const handleChange = (event) => {
     setcategoryType(event.target.value);
   };
 
   return (
-    <Box>
-      <StyledBox>
-        <Search>
-          <FormControl>
-            <AllSelect
-              labelId="demo-simple-select-label"
-              id="demo-simple-select"
-              value={categoryType}
-              onChange={handleChange}
-              displayEmpty
-              inputProps={{ "aria-label": "Without label" }}
-            >
-              <MenuItem value="">
-                <em>All</em>
+    <StyledBox>
+      <Search>
+        <FormControl>
+          <AllSelect
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={categoryType}
+            onChange={handleChange}
+            displayEmpty
+            inputProps={{ "aria-label": "Without label" }}
+          >
+            <MenuItem value="">
+              <em>All</em>
+            </MenuItem>
+            {dataa.map((el) => (
+              <MenuItem key={el} value={el}>
+                {el}
               </MenuItem>
-              {dataa.map((el) => (
-                <MenuItem key={el} value={el}>
-                  {el}
-                </MenuItem>
-              ))}
-            </AllSelect>
-          </FormControl>
-          <StyledAutoComplete
-            id="custom-input-demo"
-            options={filteredData.map((el) => el.title)}
-            renderInput={(params) => (
-              <div
-                ref={params.InputProps.ref}
-                style={{
-                  display: "flex",
-                  height: "100%",
-                  borderRadius: "0px 4px 4px 0px",
-                }}
-              >
-                <StyledInputBase
-                  type="text"
-                  {...params.inputProps}
-                  placeholder="Search Amazon"
-                />
-                <SearchIconWrapper>
-                  <SearchIcon />
-                </SearchIconWrapper>
-              </div>
-            )}
-          />
-        </Search>
-      </StyledBox>
-    </Box>
+            ))}
+          </AllSelect>
+        </FormControl>
+        <StyledAutoComplete
+          id="custom-input-demo"
+          options={filteredData.map((el) => el.title)}
+          renderInput={(params) => (
+            <div
+              ref={params.InputProps.ref}
+              style={{
+                display: "flex",
+                height: "100%",
+                borderRadius: "0px 4px 4px 0px",
+              }}
+            >
+              <StyledInputBase
+                type="text"
+                {...params.inputProps}
+                placeholder="Search Amazon"
+              />
+              <SearchIconWrapper>
+                <SearchIcon />
+              </SearchIconWrapper>
+            </div>
+          )}
+        />
+      </Search>
+    </StyledBox>
   );
 };
 export default SearchComp;

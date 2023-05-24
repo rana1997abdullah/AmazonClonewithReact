@@ -22,7 +22,18 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
     flexDirection: "column",
     rowGap: "1em",
   },
-  columnGap: "1em",
+  columnGap: "0.2em",
+  [theme.breakpoints.up("md")]:{
+    columnGap:'0.2em'
+  },
+  [theme.breakpoints.up("lg")]:{
+    columnGap:'0.1em'
+  },
+  [theme.breakpoints.up("xl")]:{
+    columnGap:'2em'
+  },
+
+
 }));
 
 const Header = ({ loggedin = false, username = "rana" }) => {
@@ -46,11 +57,8 @@ const Header = ({ loggedin = false, username = "rana" }) => {
             <LocationNav />
             <SearchComp data={data} />
             <LangNav />
-            <Box sx={{ flexGrow: 0.4 }} />
             <AccountNav loggedin={loggedin} username={username} />
-            <Box sx={{ flexGrow: 0.4 }} />
             <OrdersNav />
-            <Box sx={{ flexGrow: 0.4 }} />
             <CartNav />
           </StyledToolbar>
         </AppBar>

@@ -22,9 +22,10 @@ export const StyledToolbar = styled(Toolbar)({
     width: "auto",
     display: "flex",
     alignItems: "center",
+    padding: "0.5em",
     "&:hover": {
       border: "1px solid white",
-      padding: "0.5em",
+     
       height: "100%",
     },
   });
