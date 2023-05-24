@@ -1,14 +1,21 @@
-import {   Drawer, Typography, styled } from "@mui/material";
+import { Drawer, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import Divider from "@mui/material/Divider";
 
-
 import InnerList from "./InnerList";
-import {StyledIconButton,StyledBox,StyledMainBox, StyledAvatar} from './styles';
-const DrawerCmp = ({ open, toggleDrawer, loggedIn = false ,username="rana",data}) => {
-
-
-
+import {
+  StyledIconButton,
+  StyledBox,
+  StyledMainBox,
+  StyledAvatar,
+} from "./styles";
+const DrawerCmp = ({
+  open,
+  toggleDrawer,
+  loggedIn = false,
+  username,
+  data,
+}) => {
   return (
     <Drawer
       //from which side the drawer slides in
@@ -20,11 +27,11 @@ const DrawerCmp = ({ open, toggleDrawer, loggedIn = false ,username="rana",data}
     >
       <StyledMainBox>
         <StyledBox>
-        
-        <StyledAvatar />   <Typography>Hello, {loggedIn ? username:'Sign in'}</Typography>
+          <StyledAvatar />
+          <Typography>Hello, {loggedIn ? username : "Sign in"}</Typography>
           {open && (
             <StyledIconButton onClick={toggleDrawer(false)}>
-              <CloseIcon  />
+              <CloseIcon />
             </StyledIconButton>
           )}
         </StyledBox>

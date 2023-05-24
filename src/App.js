@@ -1,16 +1,8 @@
-import logo from './logo.svg';
-import './App.css';
-import Header from './components/Header';
-import InnerHeader from './components/Header/InnerHeader';
-import HomePage from './components/HomePage';
+import "./App.css";
+import Form from "./components/Form";
 
 function App() {
-  return (<>
-   <Header/>
-   <InnerHeader/>
-   <HomePage/>
-   </>
-  );
+  return <Form />;
 }
 
 export default App;
