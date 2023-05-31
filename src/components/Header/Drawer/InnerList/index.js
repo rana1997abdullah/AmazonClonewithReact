@@ -22,13 +22,13 @@ import { StartAuth } from "../../../firebase";
 const InnerList = ({ data, loggedIn }) => {
   const navigate = useNavigate();
 
-  const handleClick = (e) => {
+  const handleClick = async(e) => {
     e.preventDefault();
     if (loggedIn)
-      signOut(StartAuth())
+    await  signOut(StartAuth())
         .then(() => {
           // Sign-out successful.
-          navigate("/home", { state: { loggedIn: false } });
+          navigate("/", { state: { loggedIn: false } });
           console.log("Signed out successfully");
         })
         .catch((error) => {

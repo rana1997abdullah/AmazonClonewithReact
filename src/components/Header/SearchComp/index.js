@@ -1,4 +1,6 @@
 import { FormControl } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+
 import SearchIcon from "@mui/icons-material/Search";
 import MenuItem from "@mui/material/MenuItem";
 import { useState, useEffect } from "react";
@@ -19,6 +21,7 @@ const SearchComp = ({ data, setBackgroundBody }) => {
   const [dataa, setData] = useState([]);
   const [selectedValue, setSelectedValue] = useState("");
   const [filteredData, setFilteredData] = useState([]);
+  const navigate = useNavigate();
   let arr = [];
   useEffect(() => {
     {
@@ -48,16 +51,17 @@ const SearchComp = ({ data, setBackgroundBody }) => {
   const handleChange = (event) => {
     setcategoryType(event.target.value);
   };
-  const handleClick = () => {
-    console.log("selectedValue");
-    if (!selectedValue)
-      // setFilteredData(filteredData.filter(el=>el.category.toLowerCase().includes(categoryType)))
-      console.log(
-        filteredData.filter((el) =>
-          el.category.toLowerCase().includes(categoryType.toLowerCase())
-        )
-      );
+  const handleClick = (e) => {
+    e.preventDefault();
+    localStorage.setItem("categoryType", categoryType);
+  
+    navigate("/productslist", { state: { categoryType: categoryType } });
   };
+  const handleSelectItem = (e)=>{
+  const selectedValue = filteredData.filter(el=>el.title ==e.target.value)[0];
+  console.log(selectedValue)
+    navigate('/productDetails',{state:{product:selectedValue}});
+  }
   return (
     <StyledBox>
       <Search>
@@ -84,7 +88,7 @@ const SearchComp = ({ data, setBackgroundBody }) => {
           id="custom-input-demo"
           options={filteredData.map((el) => el.title)}
           onChange={(e, value) => setSelectedValue(value)}
-          onClick={handleClick}
+          onSelect={(e)=>handleSelectItem(e)}
           renderInput={(params) => (
             <div
               ref={params.InputProps.ref}
@@ -102,7 +106,7 @@ const SearchComp = ({ data, setBackgroundBody }) => {
                 {...params.inputProps}
                 placeholder="Search Amazon"
               />
-              <SearchIconWrapper onClick={handleClick}>
+              <SearchIconWrapper onClick={(e) => handleClick(e)}>
                 <SearchIcon />
               </SearchIconWrapper>
             </div>

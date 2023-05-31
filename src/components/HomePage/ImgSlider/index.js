@@ -1,9 +1,33 @@
 import SliderCmp from "../../Slider";
-import { Box } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { NextArrow, PrevArrow } from "./styles";
 
+const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
+  <PrevArrow
+    {...props}
+    className={
+      "slick-prev slick-arrow" +
+      (currentSlide === 0 ? " slick-disabled" : "")
+    }
+    aria-hidden="true"
+    aria-disabled={currentSlide === 0 ? true : false}
+    type="button"
+ />
+);
+const SlickArrowRight = ({ currentSlide, slideCount, ...props }) => (
+  <NextArrow
+    {...props}
+    className={
+      "slick-next slick-arrow" +
+      (currentSlide === slideCount - 1 ? " slick-disabled" : "")
+    }
+    aria-hidden="true"
+    aria-disabled={currentSlide === slideCount - 1 ? true : false}
+    type="button"
+ />
+);
 const ImgSlider = () => {
   const Images = [
     "./amazonslide1.jpg",
@@ -37,8 +61,8 @@ const ImgSlider = () => {
         },
       },
     ],
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
+    nextArrow: <SlickArrowRight />,
+    prevArrow: <SlickArrowLeft />,
   };
   return (
     <SliderCmp {...settings}>

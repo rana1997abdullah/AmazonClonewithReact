@@ -4,8 +4,33 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./index.css";
 import { NextArrow, PrevArrow } from "./styles";
-
+import { useNavigate } from "react-router-dom";
+const SlickArrowLeft = ({ currentSlide, slideCount, ...props }) => (
+  <PrevArrow
+    {...props}
+    className={
+      "slick-prev slick-arrow" +
+      (currentSlide === 0 ? " slick-disabled" : "")
+    }
+    aria-hidden="true"
+    aria-disabled={currentSlide === 0 ? true : false}
+    type="button"
+ />
+);
+const SlickArrowRight = ({ currentSlide, slideCount, ...props }) => (
+  <NextArrow
+    {...props}
+    className={
+      "slick-next slick-arrow" +
+      (currentSlide === slideCount - 1 ? " slick-disabled" : "")
+    }
+    aria-hidden="true"
+    aria-disabled={currentSlide === slideCount - 1 ? true : false}
+    type="button"
+ />
+);
 const ProductsSlider = (props) => {
+  const navigate = useNavigate();
   const settings = {
     arrows: props.showArrow,
     initialSlide: 0,
@@ -47,9 +72,12 @@ const ProductsSlider = (props) => {
         },
       },
     ],
-    nextArrow: <NextArrow />,
-    prevArrow: <PrevArrow />,
+    nextArrow: <SlickArrowRight/>,
+    prevArrow: <SlickArrowLeft />,
   };
+  const handleNavigate = (product)=>{
+    navigate('/productDetails',{state:{product:product}})
+  }
 
   return (
     <SliderCmp
@@ -68,6 +96,7 @@ const ProductsSlider = (props) => {
             }}
             className={"product_image"}
             src={product.image}
+            onClick={()=>handleNavigate(product)}
           />
         </div>
       ))}
