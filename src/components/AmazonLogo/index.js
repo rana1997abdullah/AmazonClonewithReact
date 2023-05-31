@@ -1,20 +1,17 @@
 import { Typography, Box, styled } from "@mui/material";
+import { StyledFlexBox } from "../SharedStyles";
 
 const StyledLogoBox = styled(Box)({
   height: 40,
   width: 70,
   objectFit: "contain",
 });
-const StyledLogoTypo = styled(Typography)({
-  display: "flex",
-  alignItems: "center",
-});
-const AmazonLogo = () => {
+const AmazonLogo = (props) => {
  
   return (
-    <StyledLogoTypo variant="h6" noWrap component="div">
+    <StyledFlexBox variant="h6"  component="div" {...props} >
       <StyledLogoBox component="img" src={"./amazonlogo.png"} />
-    </StyledLogoTypo>
+    </StyledFlexBox>
   );
 };
 export default AmazonLogo;

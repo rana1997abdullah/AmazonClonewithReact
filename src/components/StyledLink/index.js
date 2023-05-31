@@ -1,6 +1,6 @@
-import styled from "@emotion/styled";
-import { NavLink } from "react-router-dom";
-const StyledLink = styled(NavLink)({
+
+import { styled } from "@mui/material";
+const StyledLink = styled("a")({
   color: "#007185",
   fontSize: "10px",
   textDecoration: "none",

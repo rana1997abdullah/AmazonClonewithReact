@@ -14,6 +14,8 @@ import LangNav from "./LangNav";
 import AccountNav from "./AccountNav";
 import OrdersNav from "./OrdersNav";
 import { StyledHeaderLink } from "../SharedStyles";
+import {useNavigate} from 'react-router-dom';
+
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   display: "flex",
   backgroundColor: "#131921",
@@ -34,8 +36,10 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   },
 }));
 
-const Header = ({ loggedIn = false, username, setBackgroundBody }) => {
+const Header = ({ loggedIn = false, 
+  username, setBackgroundBody ,removeCookie}) => {
   const [data, setData] = useState([]);
+  const navigate = useNavigate();
   useEffect(() => {
     const startRef = ref(StartFirebase(), "Categories");
     onValue(startRef, (snapshot) => {
@@ -50,13 +54,13 @@ const Header = ({ loggedIn = false, username, setBackgroundBody }) => {
         <AppBar position="static">
           <StyledToolbar>
             <StyledHeaderLink underline="none">
-              <AmazonLogo />
+              <AmazonLogo  onClick={()=>navigate('/')}/>
             </StyledHeaderLink>
             <LocationNav />
             <SearchComp data={data} setBackgroundBody={setBackgroundBody} />
             <LangNav />
             <Box sx={{ flexGrow: 0.4 }} />
-            <AccountNav loggedIn={loggedIn} username={username} />
+            <AccountNav loggedIn={loggedIn} username={username} removeCookie={removeCookie} />
             <Box sx={{ flexGrow: 0.4 }} />
             <OrdersNav />
             <CartNav />

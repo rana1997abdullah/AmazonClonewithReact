@@ -1,45 +1,59 @@
 import React, { useEffect, useState } from "react";
-import { signOut } from "firebase/auth";
-import StartFirebase, { StartAuth } from "../firebase";
+import StartFirebase, { getCurrentUser } from "../firebase";
 import { useLocation, useNavigate } from "react-router-dom";
 import Header from "../Header";
 import InnerHeader from "../Header/InnerHeader";
 import { onValue, ref } from "firebase/database";
-import HomePage from "../HomePage";
-const Home = () => {
-  const [user, setUser] = useState("");
-  const navigate = useNavigate();
+
+import { Outlet } from "react-router-dom";
+import Footer from "../Footer";
+
+const Home = ({ cookies, setCookie, removeCookie, isSignedIn, signIn }) => {
+  const [user, setUser] = useState(localStorage.getItem("user") || "");
   const location = useLocation();
   const [backgroundBody, setBackgroundBody] = useState("transparent");
-
+  const [loggedIn, setLoggedIn] = useState();
+  const checkcurrentUser = ()=>{
+    return getCurrentUser();
+  }
   useEffect(() => {
+    const existsUser = checkcurrentUser();
+    console.log('userr',existsUser);
+    setLoggedIn(existsUser ? true:false)
     const startRef = ref(StartFirebase(), "Users");
-    if (location.state?.loggedIn)
+
+    if (localStorage.getItem("isSignedIn"))
       onValue(startRef, (snapshot) => {
         const res = snapshot.val();
-        let user = Object.values(res).filter(
-          (el) => el.userId == location.state.userId
-        );
-        console.log(
-          Object.values(res).filter((el) => el.userId == location.state.userId)
-        );
-        setUser(user[0]);
-        console.log(location.state.userId);
+        const userId = location.state?.userId
+          ? location.state.userId
+          : localStorage.getItem("uid");
+        let userItem = Object.values(res).filter((el) => el.userId == userId);
+
+        setLoggedIn(isSignedIn);
+        localStorage.setItem("user", userItem[0]);
+        setUser(userItem[0]);
+        // setCookie("loggedIn", isSignedIn, { path: "/" });
+
+        setUser(userItem[0]);
       });
   }, []);
 
   return (
     <>
       <Header
-        loggedIn={location.state?.loggedIn}
+        loggedIn={getCurrentUser() ? true:false}
         username={user.username}
+        removeCookie={removeCookie}
         setBackgroundBody={setBackgroundBody}
       />
       <InnerHeader
-        loggedIn={location.state?.loggedIn}
+        removeCookie={removeCookie}
+        loggedIn={location.state?.loggedIn || cookies.loggedIn || localStorage.getItem("isSignedIn")}
         username={user.username}
       />
-      <HomePage />
+      <Outlet />
+      <Footer/>
     </>
   );
 };

@@ -18,7 +18,7 @@ const StyledArrowIcon = styled(ArrowDropDownIcon)({
   marginTop: "0.5em",
 });
 
-const AccountNav = ({ loggedIn = false, username }) => {
+const AccountNav = ({ loggedIn = false, username,removeCookie }) => {
   const [open, setOpen] = useState(false);
   const handleTooltipClose = () => {
     setOpen(false);
@@ -36,7 +36,10 @@ const AccountNav = ({ loggedIn = false, username }) => {
           arrow
           left="3.9em"
           placement="bottom-end"
-          title={<AccountListControl loggedIn={loggedIn} />}
+          title={<AccountListControl 
+            loggedIn={loggedIn}
+            removeCookie={removeCookie}
+            />}
         >
           <StyledFlexBox onMouseEnter={handleTooltipOpen}>
             <StyledColumnFlexBox>

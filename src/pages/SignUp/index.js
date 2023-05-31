@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createUserWithEmailAndPassword, sign } from "firebase/auth";
-import { StartAuth } from "../firebase";
-import { StartFirebase } from "../firebase";
+import { StartAuth } from "../../components/firebase";
+import { StartFirebase } from "../../components/firebase";
 import { ref, update } from "firebase/database";
 import { FormControl, Typography } from "@mui/material";
+import Swal from 'sweetalert2'
 
-import SharedForm from "../sharedForm";
+import SharedForm from "../../components/sharedForm";
 import { StyledButton, StyledInput, StyledInputLabel } from "./styles";
 
 const Signup = () => {
@@ -32,6 +33,7 @@ const Signup = () => {
           username: username,
           userId: user.uid,
           email: email,
+          password:password
         };
         const updates = {};
         updates["/Users/" + user.uid] = obj;
@@ -46,7 +48,12 @@ const Signup = () => {
         console.log(errorCode, errorMessage);
         // ..
 
-        alert(errorMessage);
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: errorMessage,
+          
+        })
       });
   };
 

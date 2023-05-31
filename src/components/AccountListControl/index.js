@@ -13,14 +13,16 @@ import {
 import { signOut } from "firebase/auth";
 import { StartAuth } from "../firebase";
 import { useNavigate } from "react-router-dom";
-const AccountListControl = ({ loggedIn = false }) => {
+const AccountListControl = ({ loggedIn = false,removeCookie }) => {
   const navigate = useNavigate();
-  const handleLogout = (e, item) => {
+  const handleLogout = async(e, item) => {
     e.preventDefault();
     if (item == "Sign out")
-      signOut(StartAuth())
+      await signOut(StartAuth())
         .then(() => {
           // Sign-out successful.
+          localStorage.setItem("isSignedIn",false);
+          removeCookie('loggedIn');
           navigate("/home", { state: { loggedIn: false } });
           console.log("Signed out successfully");
         })
