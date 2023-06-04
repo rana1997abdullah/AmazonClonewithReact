@@ -26,40 +26,49 @@ const SearchComp = ({ data, setBackgroundBody }) => {
   useEffect(() => {
     {
       Object.keys(data).map((el, index) => {
-        console.log(el);
         Object.values(data[el]).map((ele) => arr.push(ele));
       });
     }
     setData(arr);
   }, [data]);
   useEffect(() => {
+  
     const startRef = ref(StartFirebase(), "Products");
+    const filteredDataa =[];
     onValue(startRef, (snapshot) => {
       const res = snapshot.val();
+      res.filter(el=>el.category.toLowerCase()=== categoryType.toLowerCase()
+      )
+      .map(
+        el=>filteredDataa.push(el)
+      )
+ 
       {
         categoryType
-          ? setFilteredData(
-              res.filter(
-                (el) => el.category.toLowerCase() === categoryType.toLowerCase()
-              )
-            )
-          : setFilteredData(res);
+          ? 
+          setFilteredData(
+             filteredDataa)
+                  
+            
+          :setFilteredData(res);
       }
     });
   }, [categoryType]);
 
   const handleChange = (event) => {
     setcategoryType(event.target.value);
+
+   
   };
   const handleClick = (e) => {
     e.preventDefault();
     localStorage.setItem("categoryType", categoryType);
-  
+    selectedValue ? navigate('/productDetails',{state:{product:selectedValue}}):
     navigate("/productslist", { state: { categoryType: categoryType } });
   };
   const handleSelectItem = (e)=>{
   const selectedValue = filteredData.filter(el=>el.title ==e.target.value)[0];
-  console.log(selectedValue)
+  setSelectedValue(selectedValue);
     navigate('/productDetails',{state:{product:selectedValue}});
   }
   return (
@@ -106,8 +115,8 @@ const SearchComp = ({ data, setBackgroundBody }) => {
                 {...params.inputProps}
                 placeholder="Search Amazon"
               />
-              <SearchIconWrapper onClick={(e) => handleClick(e)}>
-                <SearchIcon />
+              <SearchIconWrapper >
+                <SearchIcon onClick={(e) => handleClick(e)} />
               </SearchIconWrapper>
             </div>
           )}

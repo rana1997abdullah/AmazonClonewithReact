@@ -8,7 +8,6 @@ import {useNavigate} from 'react-router-dom';
 const CategoryCard = ({ title, image, children, subtitle }) => {
   const navigate = useNavigate();
   const handleClick = ()=>{
-    console.log(title);
     navigate('./productslist',{state:{categoryType:title}});
   }
   return (

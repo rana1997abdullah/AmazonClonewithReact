@@ -68,7 +68,7 @@ const CartProduct = ({ product }) => {
     const obj = { ...product, quantity: Number(e.target.value) };
     let timerInterval;
     Swal.fire({
-      title: "Auto close alert!",
+      title: "Changing quantity",
       html: "I will close in <b></b> milliseconds.",
       timer: 2000,
       timerProgressBar: true,
@@ -90,7 +90,6 @@ const CartProduct = ({ product }) => {
     });
     let value = getSelectedKey(getCurrentUser(), product).then((res) => {
       instance.put(`Cart/${res}.json`, obj).then((res) => {
-        console.log(res.data);
         Swal.fire("the quantity is added", "success");
       });
     });
@@ -99,7 +98,7 @@ const CartProduct = ({ product }) => {
   
     let timerInterval;
     Swal.fire({
-      title: "Auto close alert!",
+      title: "Deleting Item",
       html: "I will close in <b></b> milliseconds.",
       timer: 2000,
       timerProgressBar: true,
@@ -121,7 +120,6 @@ const CartProduct = ({ product }) => {
     });
     let value = getSelectedKey(getCurrentUser(), product).then((res) => {
       instance.delete(`Cart/${res}.json`).then((res) => {
-        console.log(res.data);
         Swal.fire("the item is deleted from the card", "success");
       });
     });

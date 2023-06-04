@@ -1,4 +1,4 @@
-import { Drawer, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 import {
   StyledCard,
   StyledCartBox,
@@ -9,88 +9,18 @@ import {
   StyledInStockTypo,
   TextInput,
   StyledFlexBox,
-  StyledDrawer,
-  InnerDrawerBox,
-  AddedTypo,
-  DrawerOuterButtonsBox,
-  DrawerButtonsBox,
-  CartBtn,
-  ProceedCheckoutBtn,
-  StyledSideDrawerImage,
-  StyledImageDrawerBox,
-  StyledOuterBackBox,
-  StyledBtnTitle,
 } from "./styles";
 import { useState } from "react";
 import LocationOnOutlinedIcon from "@mui/icons-material/LocationOnOutlined";
 import SharedLink from "../../components/StyledLink";
-import StartFirebase, { getCurrentUser } from "../../components/firebase";
-import {
-  onValue,
-  ref,
-} from "firebase/database";
+import { getCurrentUser } from "../../components/firebase";
+
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
-import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
 
-import { useEffect } from "react";
 import instance from "../../components/firebase/instance";
-const CartDrawer = ({ product, open, setopen }) => {
-  const [cartItems, setCartItems] = useState([]);
-  const [totalPrice, setTotalPrice] = useState(0);
-  const [totalNumberItems, setTotalNumberItems] = useState(0);
-  const navigate = useNavigate();
-  useEffect(() => {
-    const startRef = ref(StartFirebase(), "Cart");
-    let price = 0;
-    let arr = [];
-    let totalNumber = 0;
-    onValue(startRef, (snapshot) => {
-      const res = snapshot.val();
-      const currentUserId = getCurrentUser().uid;
-      Object.values(res)
-        .filter((el) => el.userId == currentUserId)
-        .map((el) => {
-          arr.push(el);
-          price += el.price * el.quantity;
-          totalNumber += Number(el.quantity);
-        });
-      setTotalPrice(price.toFixed(2));
-      setTotalNumberItems(totalNumber);
-      setCartItems(arr);
-    });
-  }, []);
-  const handleGoToCart = (e) => {
-    // e.preventDefault();
-    e.stopPropagation();
-    navigate("/Cart");
-  };
-  return (
-    <StyledDrawer anchor="right" open={open} onClose={() => setopen(false)}>
-      <StyledOuterBackBox>
-        <InnerDrawerBox>
-          <CheckCircleOutlineOutlinedIcon sx={{ color: "green" }} />
-          <StyledImageDrawerBox>
-            <AddedTypo> Added to Cart</AddedTypo>
-            <StyledSideDrawerImage
-              sx={{ backgroundImage: `url(${product.image})` }}
-            ></StyledSideDrawerImage>
-          </StyledImageDrawerBox>
+import CartDrawer from "./CartDrawer";
 
-          <DrawerOuterButtonsBox>
-            <StyledBtnTitle>
-              Cart Subtotal ({totalNumberItems} items): ${totalPrice}
-            </StyledBtnTitle>
-            <DrawerButtonsBox>
-              <CartBtn onClick={handleGoToCart}>Cart</CartBtn>
-              <ProceedCheckoutBtn>Proceed to Checkout</ProceedCheckoutBtn>
-            </DrawerButtonsBox>
-          </DrawerOuterButtonsBox>
-        </InnerDrawerBox>
-      </StyledOuterBackBox>
-    </StyledDrawer>
-  );
-};
 const RightCard = ({ product }) => {
   const [quantity, setquantity] = useState(1);
   const [open, setopen] = useState(false);
@@ -101,8 +31,6 @@ const RightCard = ({ product }) => {
 
   const getSelectedKey = (user, product) => {
     return instance.get("/Cart.json").then((response) => {
-      console.log(response.data);
-      console.log(product);
       const fetchedResults = [];
       for (let key in response.data) {
         if (
@@ -120,9 +48,8 @@ const RightCard = ({ product }) => {
     e.preventDefault();
     const user = await getCurrentUser();
 
-    const obj = { ...product, userId: user.uid, quantity: Number(quantity) };
-
     if (user) {
+      const obj = { ...product, userId: user.uid, quantity: Number(quantity) };
       let value = getSelectedKey(user, product).then((res) => {
         if (res) {
           instance

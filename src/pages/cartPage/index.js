@@ -7,17 +7,25 @@ import {
   StyledButton,
   StyledRightCard,
   StyledLeftPrice,
+  StyledSideImage,
+  StyledEmptyCard,
+  StyledFlexCard,
+  StyledLoginButton,
+  StyledSignupNow,
+  StyledColumnFlex
 } from "./styles";
 import { useEffect } from "react";
 import { useState } from "react";
 import  { getCurrentUser } from "../../components/firebase";
 import CartProduct from "./cartProduct";
 import instance from "../../components/firebase/instance";
+import {useNavigate} from 'react-router-dom';
 
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalNumberItems, setTotalNumberItems] = useState(0);
+ const navigate = useNavigate();
 
   const formatPostData = (response) => {
     let fetchedArr = [];
@@ -44,9 +52,14 @@ const CartPage = () => {
         formatPostData(response);
       });
   }, [cartItems]);
+  const handleNavigate = (item)=>{
+    const path = `/${item}`
+    navigate(path);
+  }
   return (
+    <>
     <StyledBox>
-      {getCurrentUser() && (
+      {(getCurrentUser() || localStorage.getItem('isSignedIn')) && (
         <StyledCard>
         {cartItems && 
         <>
@@ -62,7 +75,7 @@ const CartPage = () => {
           {!cartItems.length && <StyledTypography>Your Amazon Cart is empty</StyledTypography>}
         </StyledCard>
       )}
-      {getCurrentUser() && 
+      {(getCurrentUser() || localStorage.getItem('isSignedIn')) && 
         cartItems && <StyledRightCard>
           <StyledSubTotalTypo>
             Subtotal ({totalNumberItems} items): ${totalPrice}
@@ -70,7 +83,27 @@ const CartPage = () => {
           <StyledButton>Proceed To checkout</StyledButton>
         </StyledRightCard>
       }
+      {!(getCurrentUser() || localStorage.getItem('isSignedIn')) && 
+       <StyledEmptyCard>
+      <StyledSideImage
+        sx={{ backgroundImage: `url('./nologincart.svg')` }}
+      ></StyledSideImage>
+      <StyledColumnFlex>
+      <StyledTypography>Your Amazon Cart is empty</StyledTypography>
+      <StyledFlexCard >
+      <StyledLoginButton onClick={()=>handleNavigate("login")}>
+        Sign in to your account
+      </StyledLoginButton>
+      <StyledSignupNow onClick={()=>handleNavigate("signup")}>
+        Sign up now
+      </StyledSignupNow>
+      </StyledFlexCard>
+      </StyledColumnFlex>
+      </StyledEmptyCard>
+      
+      }
     </StyledBox>
+    </>
   );
 };
 export default CartPage;

@@ -23,6 +23,10 @@ const SharedForm = ({ children, title, formType }) => {
         e.preventDefault();
         navigate('/signup');
       };
+      const handleSignin = (e)=>{
+        e.preventDefault();
+        navigate('/login')
+      }
   return (
     <StyledFlexBox>
       <StyledInnerBox>
@@ -49,7 +53,7 @@ const SharedForm = ({ children, title, formType }) => {
                 Already have an account?
                 <SharedLink
                   sx={{ fontSize: "12px" }}
-                  to="/login"
+                  onClick={handleSignin}
                   title="Sign in"
                 />
               </StyledTypography>

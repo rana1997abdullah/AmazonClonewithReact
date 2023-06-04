@@ -25,7 +25,7 @@ function handleChange(event) {
   const { name, value } = event.target;
   
   setUserData((prevInputData) => ({ ...prevInputData, [name]: value }));
-console.log(userData)
+
 }
 
   const onSubmit = async (e) => {
@@ -37,23 +37,20 @@ console.log(userData)
         // Signed in
         const user = userCredential.user;
         signIn(); 
-        console.log(user);
         setUserId(user.uid);
         localStorage.setItem("uid",user.uid);
         navigate("/", 
         { state: { userId: user.uid, 
           loggedIn: true } });
-        console.log(user);
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
         
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: errorMessage,
+          text:  errorMessage.split('/')[1].split(')')[0],
           
         })
       });

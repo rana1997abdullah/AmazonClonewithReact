@@ -34,13 +34,17 @@ const AccountListControl = ({ loggedIn = false,removeCookie }) => {
     e.preventDefault();
     navigate("/login");
   };
+  const handlesignup = (e)=>{
+    e.preventDefault();
+    navigate('/signup')
+  }
   return (
     <StyledBasicFlexBox>
       {!loggedIn && (
         <Box>
           <StyledSigninButton onClick={handleClick}>Sign in</StyledSigninButton>
           <Typography>
-            New Customer? <SharedLink title={"Start Here"} />
+            New Customer? <SharedLink title={"Start Here"} onClick={handlesignup} />
           </Typography>
         </Box>
       )}

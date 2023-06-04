@@ -52,8 +52,83 @@ export const StyledButton = styled(Button)({
   },
 });
 export const StyledLeftPrice = styled(Box)({
-display:'flex',
-justifyContent:'flex-end',
-alignItems:'flex-end',
-marginRight:'1em'
-})
+  display: "flex",
+  justifyContent: "flex-end",
+  alignItems: "flex-end",
+  marginRight: "1em",
+});
+export const StyledSideImage = styled(Box)({
+  width: "30%",
+  aspectRatio: "auto 180 / 180",
+  alignItems: "center",
+  justifyContent: "center",
+  paddingTop: "1em",
+  marginTop: "4em",
+  marginLeft: "1em",
+  backgroundRepeat: "no-repeat",
+  display: "flex",
+});
+export const StyledEmptyCard = styled(Card)({
+  backgroundColor: "white",
+  marginBottom: "20px",
+  width: "100%",
+  overflow: "auto",
+  margin: "2em",
+  minWidth: "200px",
+  marginBottom: "1em",
+
+  display: "flex",
+  alignItems: "center",
+  width: "75%",
+  columnGap: "1em",
+});
+export const StyledFlexCard = styled(Box)({
+  display: "flex",
+  alignItems: "center",
+  columnGap: "1em",
+});
+export const StyledLoginButton = styled(Button)({
+  width: "100%",
+  background: "#FFD814",
+  borderColor: "#FCD200",
+  boxShadow: "0 2px 5px 0 rgba(213,217,217,.5)",
+  color: "#111",
+  padding: "0 10px 0 11px",
+  textTransform: "none",
+  fontSize: "16px",
+  lineHeight: "24px",
+  minWidth: "200px",
+  marginTop: "-6em",
+  fontWeight: "600",
+  whiteSpace: "nowrap",
+  height: "29px",
+  "&:hover": {
+    background: "#f0b800",
+    borderColor: "#008296",
+    boxShadow: "0 0 0 3px #c8f3fa,inset 0 0 0 2px #fff",
+  },
+});
+export const StyledSignupNow = styled(Button)({
+  backgroundColor: "transparent",
+  fontSize: "16px",
+  lineHeight: "24px",
+  color: "#0F1111",
+  marginTop: "-6em",
+  padding: "0 10px 0 11px",
+  borderRadius: "8px",
+  boxShadow: "0 2px 5px 0 rgba(213,217,217,.5)",
+  border: "1px solid #D5D9D9",
+  width: "100%",
+  fontWeight: "600",
+  whiteSpace: "nowrap",
+  textTransform: "none",
+  height: "29px",
+});
+export const StyledColumnFlex = styled(Box)({
+  display: "flex",
+  flexDirection: "column",
+  alignItems: "center",
+  justifyContent: "flex-start",
+  rowGap: "5em",
+  marginTop: "1em",
+});

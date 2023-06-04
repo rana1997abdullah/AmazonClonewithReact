@@ -40,7 +40,6 @@ const DetailsSection = ({ product }) => {
       <Divider variant="middle" />
       <StyledDetailsBox>About this item</StyledDetailsBox>
       <StyledDetailsTypo>{product.description}</StyledDetailsTypo>
- 
     </StyledRightContainer>
   );
 };
