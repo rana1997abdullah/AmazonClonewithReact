@@ -45,13 +45,10 @@ const Signup = () => {
         setMatchError(false);
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        // ..
-
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: errorMessage,
+          text: errorMessage.split('/')[1].split(')')[0],
           
         })
       });

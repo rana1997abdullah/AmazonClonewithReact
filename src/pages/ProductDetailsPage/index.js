@@ -21,10 +21,9 @@ const ProductDetailsPage = () => {
     : JSON.parse(localStorage.getItem("product"));
   const [dispImg, setDispImg] = useState(product.image);
 
- 
-  useEffect(()=>{
+  useEffect(() => {
     setDispImg(product.image);
-  },[product])
+  }, [product]);
   return (
     <StyledOuterBox>
       <StyledLeftContainer>
@@ -33,29 +32,28 @@ const ProductDetailsPage = () => {
         <Box
           sx={{
             display: "flex",
-         
+            height: "80%",
           }}
         >
-         {product?.images && <SideImagesContainer>
-            {product.images.slice(0,5).map((item, index) => (
-              <StyledSideImage
-                key={index}
-                onClick={() => setDispImg(item)}
-                onMouseMove={()=>setDispImg(item)}
-                sx={{ backgroundImage: `url(${item})` }}
-              ></StyledSideImage>
-            ))}
-          </SideImagesContainer>}
+          {product?.images && (
+            <SideImagesContainer>
+              {product.images.slice(0, 5).map((item, index) => (
+                <StyledSideImage
+                  key={index}
+                  onClick={() => setDispImg(item)}
+                  onMouseMove={() => setDispImg(item)}
+                  sx={{ backgroundImage: `url(${item})` }}
+                ></StyledSideImage>
+              ))}
+            </SideImagesContainer>
+          )}
           <DisplayImageContainer>
             <DisplayImage
               src={dispImg}
               component={"img"}
               sx={{ backgroundImage: `url(${dispImg})` }}
             ></DisplayImage>
-          
-         
           </DisplayImageContainer>
-     
         </Box>
       </StyledLeftContainer>
       <DetailsSection product={product} />

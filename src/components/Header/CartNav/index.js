@@ -25,20 +25,30 @@ const StyledShoppingCartIcon = styled(ShoppingCartOutlinedIcon)({
 });
 
 const CartNav = () => {
-  const [cartItems,setCartItems] = useState(0);
-  const navigate = useNavigate();
+  const [cartItems, setCartItems] = useState([])
+  const [totalNumberItems, setTotalNumberItems] = useState(0);
+ const navigate = useNavigate();
+  const formatPostData = (response) => {
+    let fetchedArr = [];
+    let price = 0;
+    let totalNumber = 0;
+    for (let key in response.data) {
+      if (
+        response.data[key].userId == getCurrentUser().uid &&
+        key !== "undefined"
+      ) {
+        fetchedArr.push(response.data[key]);
+       totalNumber += Number(response.data[key].quantity);
+      }
+    }
+    setCartItems(fetchedArr);
+    setTotalNumberItems(totalNumber);
+
+  };
 
   useEffect(() => {
     instance.get("/Cart.json").then((response) => {
-      const fetchedResults = [];
-
-      for (let key in response.data) {
-        fetchedResults.push({
-          ...response.data[key],
-          id: key,
-        });
-      }
-     setCartItems(fetchedResults)
+        formatPostData(response);
       });
   }, [cartItems]);
   const handleNavigate = ()=>{
@@ -54,7 +64,7 @@ const CartNav = () => {
           aria-label="show new notifications"
           color="inherit"
         >
-          <Badge badgeContent={getCurrentUser() ? cartItems.length:0} color="error">
+          <Badge badgeContent={getCurrentUser() ? totalNumberItems : 0} color="error">
             <StyledShoppingCartIcon />
           </Badge>
         </IconButton>

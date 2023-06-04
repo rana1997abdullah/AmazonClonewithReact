@@ -25,16 +25,15 @@ const ProductsPage = ({ cookies, data }) => {
 
   useEffect(() => {
     const startRef = ref(StartFirebase(), "Products");
-    console.log(cookies);
     setSeeAll(false);
     onValue(startRef, (snapshot) => {
       const res = snapshot.val();
       {
         categoryType
           ? setFilteredData(
-              res.filter(
-                (el) => el.category.toLowerCase() === categoryType.toLowerCase()
-              )
+          
+                res.filter(el=>el.category.toLowerCase()=== categoryType.toLowerCase())
+              
             )
           : setFilteredData(res);
       }

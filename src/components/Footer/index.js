@@ -159,8 +159,8 @@ export default function Footer() {
             <StyledAlignedGrid item xs={12}>
               © 1996–2023, Amazon.com, Inc. or its affiliates
             </StyledAlignedGrid>
-            <StyledInnerGrid item xs={1}></StyledInnerGrid>
-            <StyledInnerGrid item xs={1}></StyledInnerGrid>
+            <StyledInnerGrid item xs={12}></StyledInnerGrid>
+            <StyledInnerGrid item xs={12}></StyledInnerGrid>
           </Grid>
         </StyledOuterBox>
       </ThemeProvider>
