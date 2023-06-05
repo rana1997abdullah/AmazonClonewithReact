@@ -19,6 +19,7 @@ import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutli
 
 import { useEffect } from "react";
 import instance from "../../../components/firebase/instance";
+import CircularProgress from '@mui/material/CircularProgress';
 
 const CartDrawer = ({ product, open, setopen }) => {
   const [cartItems, setCartItems] = useState([]);
@@ -31,7 +32,7 @@ const CartDrawer = ({ product, open, setopen }) => {
     let price = 0;
     let totalNumber = 0;
     for (let key in response.data) {
-        
+      setLoading(true);
       if (
         response.data[key].userId == getCurrentUser().uid &&
         key !== "undefined"
@@ -40,17 +41,19 @@ const CartDrawer = ({ product, open, setopen }) => {
         price += response.data[key].price * response.data[key].quantity;
         totalNumber += Number(response.data[key].quantity);
       }
-      setLoading(true);
+     
     }
-    setLoading(false);
+   
     setCartItems(fetchedArr);
     setTotalPrice(price.toFixed(2));
     setTotalNumberItems(totalNumber);
+
   };
 
   useEffect(() => {
-    instance.get("/Cart.json").then((response) => {
+    instance.get("/Cart.json").then((response) =>  {
       formatPostData(response);
+      setLoading(false);
     });
   }, [cartItems]);
 
@@ -62,7 +65,7 @@ const CartDrawer = ({ product, open, setopen }) => {
   return (
     <StyledDrawer anchor="right" open={open} onClose={() => setopen(false)}>
       <StyledOuterBackBox>
-        <InnerDrawerBox>
+     {loading ? <CircularProgress/> :   <InnerDrawerBox>
           <CheckCircleOutlineOutlinedIcon sx={{ color: "green" }} />
           <StyledImageDrawerBox>
             <AddedTypo> Added to Cart</AddedTypo>
@@ -73,14 +76,14 @@ const CartDrawer = ({ product, open, setopen }) => {
 
           <DrawerOuterButtonsBox>
             <StyledBtnTitle>
-              Cart Subtotal {!loading && `(${totalNumberItems} items): ${totalPrice}`}
+              Cart Subtotal {!loading && `(${totalNumberItems} items): $ ${totalPrice}`}
             </StyledBtnTitle>
             <DrawerButtonsBox>
               <CartBtn onClick={handleGoToCart}>Cart</CartBtn>
               <ProceedCheckoutBtn>Proceed to Checkout</ProceedCheckoutBtn>
             </DrawerButtonsBox>
           </DrawerOuterButtonsBox>
-        </InnerDrawerBox>
+        </InnerDrawerBox>}
       </StyledOuterBackBox>
     </StyledDrawer>
   );
