@@ -37,7 +37,7 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
 }));
 
 const Header = ({ loggedIn = false, 
-  username, setBackgroundBody ,removeCookie}) => {
+  username, setBackgroundBody ,removeCookie,totalNumberItems}) => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   useEffect(() => {
@@ -60,10 +60,12 @@ const Header = ({ loggedIn = false,
             <SearchComp data={data} setBackgroundBody={setBackgroundBody} />
             <LangNav />
             <Box sx={{ flexGrow: 0.4 }} />
-            <AccountNav loggedIn={loggedIn} username={username} removeCookie={removeCookie} />
+            <AccountNav loggedIn={loggedIn} 
+            username={username} 
+            removeCookie={removeCookie} />
             <Box sx={{ flexGrow: 0.4 }} />
             <OrdersNav />
-            <CartNav />
+            <CartNav totalNumberItems={totalNumberItems}/>
           </StyledToolbar>
         </AppBar>
       </Box>

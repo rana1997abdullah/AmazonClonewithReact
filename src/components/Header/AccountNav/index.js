@@ -18,7 +18,8 @@ const StyledArrowIcon = styled(ArrowDropDownIcon)({
   marginTop: "0.5em",
 });
 
-const AccountNav = ({ loggedIn = false, username,removeCookie }) => {
+const AccountNav = ({ loggedIn = false, 
+  username,removeCookie }) => {
   const [open, setOpen] = useState(false);
   const handleTooltipClose = () => {
     setOpen(false);

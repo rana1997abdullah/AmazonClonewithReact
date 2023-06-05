@@ -156,7 +156,7 @@ export const TextInput = styled(InputBase)(({ theme }) => ({
 
   "& .MuiInputBase-input": {
     borderTopColor: "#949494",
-    width:'40%',
+    width:'30%',
     fontSize: 16,
     padding: "3px 7px",
     borderRadius: "7px",
