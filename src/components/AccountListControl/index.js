@@ -23,6 +23,7 @@ const AccountListControl = ({ loggedIn = false,removeCookie }) => {
           // Sign-out successful.
           localStorage.setItem("isSignedIn",false);
           removeCookie('loggedIn');
+          localStorage.setItem("uid",null)
           navigate("/home", { state: { loggedIn: false } });
           console.log("Signed out successfully");
         })

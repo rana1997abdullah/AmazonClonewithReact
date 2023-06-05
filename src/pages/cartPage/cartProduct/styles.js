@@ -29,7 +29,7 @@ export const StyledActionBox = styled(Box)(({ theme }) => ({
   marginTop:'-2.5em',
   cursor: "pointer",
   [theme.breakpoints.down("md")]:{
-    marginLeft:'2em'
+    marginLeft:'1em'
   }
 }));
 export const StyledMainTypography = styled(Typography)({
@@ -69,8 +69,10 @@ export const StyledBottomBox = styled(Box)(({ theme }) => ({
     display:'flex',
     justifyContent:'flex-start',
     alignItems:'center',
-    [theme.breakpoints.down("sm")]:{
-        flexDirection:'column'
+    [theme.breakpoints.down("lg")]:{
+        flexDirection:'column',
+        flexWrap:'wrap',
+        alignItems:'flex-start'
     }
     
 }))

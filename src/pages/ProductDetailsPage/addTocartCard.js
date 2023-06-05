@@ -48,7 +48,7 @@ const RightCard = ({ product }) => {
     e.preventDefault();
     const user = await getCurrentUser();
 
-    if (user) {
+    if (localStorage.getItem("isSignedIn")) {
       const obj = { ...product, userId: user.uid, quantity: Number(quantity) };
       let value = getSelectedKey(user, product).then((res) => {
         if (res) {
@@ -108,7 +108,9 @@ const RightCard = ({ product }) => {
         Add To cart
       </StyledCartButton>
       <StyledCartButton>Shop Now</StyledCartButton>
-      <CartDrawer product={product} open={open} setopen={setopen} />
+      <CartDrawer product={product} 
+      open={open} 
+      setopen={setopen} />
     </StyledCard>
   );
 };

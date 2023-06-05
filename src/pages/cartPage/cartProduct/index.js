@@ -22,12 +22,13 @@ import Swal from "sweetalert2";
 import { Divider } from "@mui/material";
 
 const CartProduct = ({ product }) => {
+  const [quantity, setquantity] = useState(0);
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalNumberItems, setTotalNumberItems] = useState(0);
   const [selectedProduct, setSelectedProduct] = useState();
   const navigate = useNavigate();
-  const [quantity, setquantity] = useState(0);
+ 
   useEffect(() => {
     const startRef = ref(StartFirebase(), "Cart");
     let price = 0;
@@ -48,7 +49,7 @@ const CartProduct = ({ product }) => {
       setCartItems(arr);
       setquantity(Number(totalNumber));
     });
-  }, []);
+  }, [cartItems]);
   const getSelectedKey = (user, product) => {
     let value = instance.get("/Cart.json").then((response) => {
       for (let key in response.data) {
@@ -70,7 +71,7 @@ const CartProduct = ({ product }) => {
     Swal.fire({
       title: "Changing quantity",
       html: "I will close in <b></b> milliseconds.",
-      timer: 2000,
+      timer: 3000,
       timerProgressBar: true,
       didOpen: () => {
         Swal.showLoading();
@@ -100,7 +101,7 @@ const CartProduct = ({ product }) => {
     Swal.fire({
       title: "Deleting Item",
       html: "I will close in <b></b> milliseconds.",
-      timer: 2000,
+      timer: 3000,
       timerProgressBar: true,
       didOpen: () => {
         Swal.showLoading();

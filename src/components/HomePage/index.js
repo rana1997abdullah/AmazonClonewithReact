@@ -99,7 +99,7 @@ const HomePage = () => {
           />
 
           <SellerSlider
-            categorytype={"clothing"}
+            categorytype={"fashion"}
             title={"More items to consider"}
           />
         </>

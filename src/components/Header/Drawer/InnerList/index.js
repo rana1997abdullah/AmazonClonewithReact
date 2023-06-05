@@ -28,8 +28,9 @@ const InnerList = ({ data, loggedIn }) => {
     await  signOut(StartAuth())
         .then(() => {
           // Sign-out successful.
-          navigate("/", { state: { loggedIn: false } });
-          console.log("Signed out successfully");
+          localStorage.setItem("isSignedIn",false);
+          localStorage.setItem("uid",null)
+          navigate("/home", { state: { loggedIn: false } });
         })
         .catch((error) => {
           // An error happened.
