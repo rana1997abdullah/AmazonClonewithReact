@@ -20,11 +20,12 @@ import  { getCurrentUser } from "../../components/firebase";
 import CartProduct from "./cartProduct";
 import instance from "../../components/firebase/instance";
 import {useNavigate} from 'react-router-dom';
-
+import CircularProgress from '@mui/material/CircularProgress';
 const CartPage = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalNumberItems, setTotalNumberItems] = useState(0);
+  const [loading,setLoading] = useState(false);
  const navigate = useNavigate();
 
   const formatPostData = (response) => {
@@ -32,6 +33,7 @@ const CartPage = () => {
     let price = 0;
     let totalNumber = 0;
     for (let key in response.data) {
+        setLoading(true);
       if (
         response.data[key].userId == getCurrentUser().uid &&
         key !== "undefined"
@@ -44,12 +46,14 @@ const CartPage = () => {
     setCartItems(fetchedArr);
     setTotalPrice(price.toFixed(2));
     setTotalNumberItems(totalNumber);
+   
 
   };
 
   useEffect(() => {
     instance.get("/Cart.json").then((response) => {
         formatPostData(response);
+         setLoading(false);
       });
   }, [cartItems]);
   const handleNavigate = (item)=>{
@@ -67,15 +71,15 @@ const CartPage = () => {
         <StyledLeftPrice><Typography>Price</Typography></StyledLeftPrice>
           <Divider variant="middle" />
 
-          {cartItems?.map((el, index) => (
+         {loading ? <CircularProgress/> :cartItems?.map((el, index) => (
             <CartProduct product={el} key={index} />
           ))}
           </>
           }
-          {!cartItems.length && <StyledTypography>Your Amazon Cart is empty</StyledTypography>}
+          {!cartItems.length && !loading && <StyledTypography>Your Amazon Cart is empty</StyledTypography>}
         </StyledCard>
       )}
-      {(getCurrentUser() || localStorage.getItem('isSignedIn')) && 
+      {( localStorage.getItem('isSignedIn')) && 
         cartItems && <StyledRightCard>
           <StyledSubTotalTypo>
             Subtotal ({totalNumberItems} items): ${totalPrice}
