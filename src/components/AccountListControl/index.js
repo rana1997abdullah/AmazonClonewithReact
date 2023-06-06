@@ -13,18 +13,18 @@ import {
 import { signOut } from "firebase/auth";
 import { StartAuth } from "../firebase";
 import { useNavigate } from "react-router-dom";
-const AccountListControl = ({ loggedIn = false,removeCookie }) => {
+const AccountListControl = ({ loggedIn = false, removeCookie }) => {
   const navigate = useNavigate();
-  const handleLogout = async(e, item) => {
+  const handleLogout = async (e, item) => {
     e.preventDefault();
     if (item == "Sign out")
       await signOut(StartAuth())
         .then(() => {
           // Sign-out successful.
-          localStorage.setItem("isSignedIn",false);
-          removeCookie('loggedIn');
-          localStorage.setItem("uid",null)
-          navigate("/home", { state: { loggedIn: false } });
+          localStorage.setItem("isSignedIn", false);
+          removeCookie("loggedIn");
+          localStorage.setItem("uid", null);
+          navigate("/", { state: { loggedIn: false } });
           console.log("Signed out successfully");
         })
         .catch((error) => {
@@ -35,17 +35,18 @@ const AccountListControl = ({ loggedIn = false,removeCookie }) => {
     e.preventDefault();
     navigate("/login");
   };
-  const handlesignup = (e)=>{
+  const handlesignup = (e) => {
     e.preventDefault();
-    navigate('/signup')
-  }
+    navigate("/signup");
+  };
   return (
     <StyledBasicFlexBox>
       {!loggedIn && (
         <Box>
           <StyledSigninButton onClick={handleClick}>Sign in</StyledSigninButton>
           <Typography>
-            New Customer? <SharedLink title={"Start Here"} onClick={handlesignup} />
+            New Customer?{" "}
+            <SharedLink title={"Start Here"} onClick={handlesignup} />
           </Typography>
         </Box>
       )}
