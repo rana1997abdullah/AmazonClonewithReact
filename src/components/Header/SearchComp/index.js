@@ -16,7 +16,7 @@ import {
 import StartFirebase from "../../firebase/index";
 import { onValue, ref } from "firebase/database";
 
-const SearchComp = ({ data, setBackgroundBody }) => {
+const SearchComp = ({ data }) => {
   const [categoryType, setcategoryType] = useState("");
   const [dataa, setData] = useState([]);
   const [selectedValue, setSelectedValue] = useState("");
@@ -32,45 +32,39 @@ const SearchComp = ({ data, setBackgroundBody }) => {
     setData(arr);
   }, [data]);
   useEffect(() => {
-  
     const startRef = ref(StartFirebase(), "Products");
-    const filteredDataa =[];
+    const filteredDataa = [];
     onValue(startRef, (snapshot) => {
       const res = snapshot.val();
-      res.filter(el=>el.category.toLowerCase()=== categoryType.toLowerCase()
-      )
-      .map(
-        el=>filteredDataa.push(el)
-      )
- 
+      res
+        .filter(
+          (el) => el.category.toLowerCase() === categoryType.toLowerCase()
+        )
+        .map((el) => filteredDataa.push(el));
+
       {
-        categoryType
-          ? 
-          setFilteredData(
-             filteredDataa)
-                  
-            
-          :setFilteredData(res);
+        categoryType ? setFilteredData(filteredDataa) : setFilteredData(res);
       }
     });
   }, [categoryType]);
 
   const handleChange = (event) => {
     setcategoryType(event.target.value);
-
-   
   };
   const handleClick = (e) => {
     e.preventDefault();
     localStorage.setItem("categoryType", categoryType);
-    selectedValue ? navigate('/productDetails',{state:{product:selectedValue}}):
-    navigate("/productslist", { state: { categoryType: categoryType } });
+    selectedValue
+      ? navigate("/productDetails", { state: { product: selectedValue } })
+      : navigate("/productslist", { state: { categoryType: categoryType } });
   };
-  const handleSelectItem = (e)=>{
-  const selectedValue = filteredData.filter(el=>el.title ==e.target.value)[0];
-  setSelectedValue(selectedValue);
-    navigate('/productDetails',{state:{product:selectedValue}});
-  }
+  const handleSelectItem = (e) => {
+    const selectedValue = filteredData.filter(
+      (el) => el.title == e.target.value
+    )[0];
+    setSelectedValue(selectedValue);
+    navigate("/productDetails", { state: { product: selectedValue } });
+  };
   return (
     <StyledBox>
       <Search>
@@ -97,7 +91,7 @@ const SearchComp = ({ data, setBackgroundBody }) => {
           id="custom-input-demo"
           options={filteredData.map((el) => el.title)}
           onChange={(e, value) => setSelectedValue(value)}
-          onSelect={(e)=>handleSelectItem(e)}
+          onSelect={(e) => handleSelectItem(e)}
           renderInput={(params) => (
             <div
               ref={params.InputProps.ref}
@@ -109,13 +103,10 @@ const SearchComp = ({ data, setBackgroundBody }) => {
             >
               <StyledInputBase
                 type="text"
-                onClick={() => setBackgroundBody("transparent")}
-                onChange={() => setBackgroundBody("rgba(0,0,0,.8)")}
-                onBlur={() => setBackgroundBody("red")}
                 {...params.inputProps}
                 placeholder="Search Amazon"
               />
-              <SearchIconWrapper >
+              <SearchIconWrapper>
                 <SearchIcon onClick={(e) => handleClick(e)} />
               </SearchIconWrapper>
             </div>

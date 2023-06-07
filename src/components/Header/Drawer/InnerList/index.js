@@ -22,15 +22,15 @@ import { StartAuth } from "../../../firebase";
 const InnerList = ({ data, loggedIn }) => {
   const navigate = useNavigate();
 
-  const handleClick = async(e) => {
+  const handleClick = async (e) => {
     e.preventDefault();
     if (loggedIn)
-    await  signOut(StartAuth())
+      await signOut(StartAuth())
         .then(() => {
           // Sign-out successful.
-          localStorage.setItem("isSignedIn",false);
-          localStorage.setItem("uid",null)
-          navigate("/home", { state: { loggedIn: false } });
+          localStorage.setItem("isSignedIn", false);
+
+          navigate("/", { state: { loggedIn: false } });
         })
         .catch((error) => {
           // An error happened.
