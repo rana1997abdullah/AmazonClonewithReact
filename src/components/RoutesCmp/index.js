@@ -13,7 +13,7 @@ import { getCurrentUser } from "../firebase";
 import instance from "../firebase/instance";
 import NotFoundPage from "../../pages/NotFoundPage";
 
-function Form() {
+function RoutesCmp() {
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const checkIsSignedIn = localStorage.getItem("isSignedIn") || "";
   const [isSignedIn, setIsSignedIn] = useState(checkIsSignedIn);
@@ -54,7 +54,7 @@ function Form() {
       formatPostData(response);
       setLoading(false);
     });
-  }, [cartItems]);
+  }, [getCurrentUser(),localStorage.getItem("user")]);
 
   useEffect(() => {
     localStorage.setItem("isSignedIn", isSignedIn);
@@ -106,4 +106,4 @@ function Form() {
   );
 }
 
-export default Form;
+export default RoutesCmp;
