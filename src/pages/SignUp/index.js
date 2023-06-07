@@ -45,10 +45,11 @@ const Signup = () => {
         setMatchError(false);
         const errorCode = error.code;
         const errorMessage = error.message;
+        const passwordlength = 'Password should be at least 6 characters'
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: errorMessage.split('/')[1].split(')')[0],
+          text: `${errorMessage.split('/')[1].split(')')[0]} ${errorMessage.split('/')[1].split(')')[0] === "weak-password" ? passwordlength:''} `,
           
         })
       });
