@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword, sign } from "firebase/auth";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 import { StartAuth } from "../../components/firebase";
 import { StartFirebase } from "../../components/firebase";
 import { ref, update } from "firebase/database";
@@ -43,12 +43,12 @@ const Signup = () => {
       })
       .catch((error) => {
         setMatchError(false);
-        const errorCode = error.code;
         const errorMessage = error.message;
+        const passwordlength = 'Password should be at least 6 characters'
         Swal.fire({
           icon: 'error',
           title: 'Oops...',
-          text: errorMessage.split('/')[1].split(')')[0],
+          text: `${errorMessage.split('/')[1].split(')')[0]} ${errorMessage.split('/')[1].split(')')[0] === "weak-password" ? passwordlength:''} `,
           
         })
       });

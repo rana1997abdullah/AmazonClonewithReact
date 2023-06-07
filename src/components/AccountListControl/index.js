@@ -17,7 +17,7 @@ const AccountListControl = ({ loggedIn = false, removeCookie }) => {
   const navigate = useNavigate();
   const handleLogout = async (e, item) => {
     e.preventDefault();
-    if (item == "Sign out")
+    if (item === "Sign out")
       await signOut(StartAuth())
         .then(() => {
           // Sign-out successful.

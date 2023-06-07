@@ -34,8 +34,8 @@ const RightCard = ({ product }) => {
       const fetchedResults = [];
       for (let key in response.data) {
         if (
-          response.data[key].title == product.title &&
-          response.data[key].userId == user.uid &&
+          response.data[key].title === product.title &&
+          response.data[key].userId === user.uid &&
           key !== "undefined"
         ) {
           return key;
@@ -50,7 +50,7 @@ const RightCard = ({ product }) => {
 
     if (localStorage.getItem("isSignedIn")) {
       const obj = { ...product, userId: user.uid, quantity: Number(quantity) };
-      let value = getSelectedKey(user, product).then((res) => {
+       getSelectedKey(user, product).then((res) => {
         if (res) {
           instance
             .put(`Cart/${res}.json`, obj)

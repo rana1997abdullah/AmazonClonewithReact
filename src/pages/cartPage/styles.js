@@ -14,9 +14,7 @@ export const StyledBox = styled(Box)(({ theme }) => ({
 }));
 export const StyledCard = styled(Card)({
   backgroundColor: "white",
-  marginBottom: "20px",
   width: "75%",
-  padding: " 10px 0 15px 0",
   margin: "1em",
   minWidth: "200px",
   padding: "0 18px 0 43px",
@@ -69,8 +67,6 @@ export const StyledSideImage = styled(Box)({
 });
 export const StyledEmptyCard = styled(Card)({
   backgroundColor: "white",
-  marginBottom: "20px",
-  width: "100%",
   margin: "2em",
   minWidth: "200px",
   marginBottom: "1em",
