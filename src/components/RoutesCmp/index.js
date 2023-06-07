@@ -54,7 +54,7 @@ function RoutesCmp() {
       formatPostData(response);
       setLoading(false);
     });
-  }, [getCurrentUser(),localStorage.getItem("user")]);
+  }, [getCurrentUser(),localStorage.getItem("user"),cartItems]);
 
   useEffect(() => {
     localStorage.setItem("isSignedIn", isSignedIn);
