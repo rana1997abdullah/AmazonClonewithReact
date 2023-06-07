@@ -24,7 +24,7 @@ const Home = ({ cookies, removeCookie, isSignedIn, totalNumberItems }) => {
       onValue(startRef, (snapshot) => {
         const res = snapshot.val();
         const userId = getCurrentUser().uid;
-        let userItem = Object.values(res).filter((el) => el.userId == userId);
+        let userItem = Object.values(res).filter((el) => el.userId === userId);
 
         setLoggedIn(isSignedIn);
         localStorage.setItem("user", userItem[0]);

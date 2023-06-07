@@ -10,13 +10,12 @@ import {
   StyledFormControl
 } from "./styles";
 import { useState } from "react";
-import { onValue, ref, update } from "firebase/database";
+import { onValue, ref } from "firebase/database";
 import StartFirebase, { getCurrentUser } from "../../../components/firebase";
 import {
   StyledInputLabel,
   TextInput,
 } from "../../ProductDetailsPage/styles";
-import { useNavigate } from "react-router-dom";
 import instance from "../../../components/firebase/instance";
 import Swal from "sweetalert2";
 import { Divider } from "@mui/material";
@@ -25,10 +24,7 @@ const CartProduct = ({ product }) => {
   const [quantity, setquantity] = useState(0);
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
-  const [totalNumberItems, setTotalNumberItems] = useState(0);
-  const [selectedProduct, setSelectedProduct] = useState();
-  const navigate = useNavigate();
- 
+  
   useEffect(() => {
     const startRef = ref(StartFirebase(), "Cart");
     let price = 0;
@@ -38,7 +34,7 @@ const CartProduct = ({ product }) => {
       const res = snapshot.val();
       const currentUserId = getCurrentUser().uid;
       Object.values(res)
-        .filter((el) => el.userId == currentUserId && el.title == product.title)
+        .filter((el) => el.userId === currentUserId && el.title === product.title)
         .map((el) => {
           arr.push(el);
           price += el.price * el.quantity;
@@ -54,8 +50,8 @@ const CartProduct = ({ product }) => {
     let value = instance.get("/Cart.json").then((response) => {
       for (let key in response.data) {
         if (
-          response.data[key].title == product.title &&
-          response.data[key].userId == user.uid &&
+          response.data[key].title === product.title &&
+          response.data[key].userId === user.uid &&
           key !== "undefined"
         ) {
           return key;
@@ -89,7 +85,7 @@ const CartProduct = ({ product }) => {
         console.log("I was closed by the timer");
       }
     });
-    let value = getSelectedKey(getCurrentUser(), product).then((res) => {
+    getSelectedKey(getCurrentUser(), product).then((res) => {
       instance.put(`Cart/${res}.json`, obj).then((res) => {
         Swal.fire("the quantity is added", "success");
       });
@@ -119,7 +115,7 @@ const CartProduct = ({ product }) => {
         console.log("I was closed by the timer");
       }
     });
-    let value = getSelectedKey(getCurrentUser(), product).then((res) => {
+     getSelectedKey(getCurrentUser(), product).then((res) => {
       instance.delete(`Cart/${res}.json`).then((res) => {
         Swal.fire("the item is deleted from the card", "success");
       });

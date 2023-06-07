@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Routes, Route } from "react-router-dom";
 import Signup from "../../pages/SignUp";
@@ -31,7 +31,7 @@ function RoutesCmp() {
       for (let key in response.data) {
         setLoading(true);
         if (
-          response.data[key].userId == getCurrentUser().uid &&
+          response.data[key].userId === getCurrentUser().uid &&
           key !== "undefined"
         ) {
           fetchedArr.push(response.data[key]);
@@ -54,7 +54,7 @@ function RoutesCmp() {
       formatPostData(response);
       setLoading(false);
     });
-  }, [getCurrentUser(),localStorage.getItem("user"),cartItems]);
+  }, [getCurrentUser(), localStorage.getItem("user"), cartItems]);
 
   useEffect(() => {
     localStorage.setItem("isSignedIn", isSignedIn);
@@ -95,7 +95,7 @@ function RoutesCmp() {
                 />
               }
             />
-            <Route path="*" element={<NotFoundPage/>}/>
+            <Route path="*" element={<NotFoundPage />} />
           </Route>
 
           <Route path="/signup" element={<Signup />} />

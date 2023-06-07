@@ -61,7 +61,7 @@ const InnerList = ({ data, loggedIn }) => {
                 </StyledListItemButtonInner>
               ))}
           </StyledMainItemButton>
-          {(index == 1 || index == 2) && (
+          {(index === 1 || index === 2) && (
             <StyledAllBox key={index}>
               <StyledListItemText
                 sx={{ paddingRight: "0" }}

@@ -93,7 +93,6 @@ export const StyledLeftContainer = styled(Box)({
   display: "flex",
   padding: "20px",
   marginTop: "9vh",
-  display: "flex",
   flexDirection: "column",
 });
 export const StyledRightContainer = styled(Box)({
@@ -161,7 +160,6 @@ export const TextInput = styled(InputBase)(({ theme }) => ({
     padding: "3px 7px",
     borderRadius: "7px",
     background: "#F0F2F2",
-
     boxShadow: "0 2px 5px rgba(15,17,17,.15)",
     transition: theme.transitions.create([
       "border-color",

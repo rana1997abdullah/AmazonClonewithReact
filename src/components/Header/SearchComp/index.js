@@ -24,11 +24,10 @@ const SearchComp = ({ data }) => {
   const navigate = useNavigate();
   let arr = [];
   useEffect(() => {
-    {
-      Object.keys(data).map((el, index) => {
-        Object.values(data[el]).map((ele) => arr.push(ele));
-      });
-    }
+    Object.keys(data).map((el, index) => {
+      Object.values(data[el]).map((ele) => arr.push(ele));
+    });
+
     setData(arr);
   }, [data]);
   useEffect(() => {
@@ -60,7 +59,7 @@ const SearchComp = ({ data }) => {
   };
   const handleSelectItem = (e) => {
     const selectedValue = filteredData.filter(
-      (el) => el.title == e.target.value
+      (el) => el.title === e.target.value
     )[0];
     setSelectedValue(selectedValue);
     navigate("/productDetails", { state: { product: selectedValue } });
