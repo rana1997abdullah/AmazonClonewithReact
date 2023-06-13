@@ -1,70 +1,112 @@
-# Getting Started with Create React App
+# Amazon Clone with React
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Ecommerce Overview
 
-## Available Scripts
+This is an Amazon clone in React.js that aims to replicate the basic functionality of amazon.
 
-In the project directory, you can run:
+React.js is a JavaScript library for building interfaces and it provides an efficient way to create web applications. It also used for creating an interactive and responsive frontend amazon clone.
 
-### `npm start`
+Also this amazon clone uses material-UI as the UI kit and react-router-dom library for routing so we can navigating between pages using this library and pass some params like product id so we can for example click on any product from the products list then it will navigate to the product details page easily.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+This clone uses the firebase to interact with React.js so we can use it for authentication and storing products.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Purpose
 
-### `npm test`
+The main objectives of this clone are to build an amazon clone with React.js and integrate it with backend like firebase also it aims to use material UI with React.js to build an interactive, responsive and reusable components.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Components and Features
 
-### `npm run build`
+1. User Interface(UI): The user interface is designed with features like a search bar, navigation menu, products lists ,product details and shopping cart.
+2. Products Lists : The clone shows a page to display products ,including images, titles, prices and ratings. User can search and filter products based on category.
+3. Product Details Page : The clone shows a page to display more information about the product like title, image, price, rating and description about this item.
+4. Shopping Cart: Users can add products to cart ,view the cart items and change quantities. React.js allows for real-time updates to the cart like adding ,removing or updating items without refreshing the page.
+5. User Authentication: This amazon clone includes user authentication ,enabling users to sign up and login. React.js is used to handle form inputs ,and firebase is used in this clone for user authentication.
+6. Backend Integration: React.js can interact with firebase to fetch products data, handle user authentication and store cart information.
+7. Not Found Page : This amazon clone has a not found page if the user tries to navigate to undefined path it will show a link to navigate to home page 
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## User Interface
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+ **Sign in Page**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![signin](https://github.com/rana1997abdullah/AmazonClonewithReact/assets/121580204/d1144235-9c80-46dd-ab5c-be751821c533))
 
-### `npm run eject`
+**Create account Page**
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+![createaccount](https://github.com/rana1997abdullah/AmazonClonewithReact/assets/121580204/1500a478-57c3-46d6-8c17-9a39faf22ad4)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**Home Page**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+![homepage](https://github.com/rana1997abdullah/AmazonClonewithReact/assets/121580204/c713d370-8ee6-47ef-8390-069b88f01e97)
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+**Products List in Home page**
 
-## Learn More
+![productslistsinhomepage](https://github.com/rana1997abdullah/AmazonClonewithReact/assets/121580204/4660c79e-1675-4849-826a-cbd0d84436c0)
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**Products list with electronics category** 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+![productListelectronicscategory](https://github.com/rana1997abdullah/AmazonClonewithReact/assets/121580204/8d5cd21f-fb70-469e-9163-8eaee5b84097)
 
-### Code Splitting
+**Product Details Page** 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+![productdetailspage](https://github.com/rana1997abdullah/AmazonClonewithReact/assets/121580204/21feeee7-5063-4351-801e-774454d07588)
 
-### Analyzing the Bundle Size
+**Added to Cart Drawer** 
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+![addedtocartheader](https://github.com/rana1997abdullah/AmazonClonewithReact/assets/121580204/74b00209-0b3a-4c60-9dbd-b53c8e1bb2a7)
 
-### Making a Progressive Web App
+**Cart Page (with loggedIn user)**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+![cartPage](https://github.com/rana1997abdullah/AmazonClonewithReact/assets/121580204/5c6f1a08-0200-4d66-8291-98b6576714c9)
 
-### Advanced Configuration
+**Updating Quantity**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+![whileupdatingquantity](https://github.com/rana1997abdullah/AmazonClonewithReact/assets/121580204/ed2cfb9f-028e-426f-a5d3-eb11504a918e)
 
-### Deployment
+**After Updating Quantity**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+![afterupdatingquantity](https://github.com/rana1997abdullah/AmazonClonewithReact/assets/121580204/db5b12c3-80ac-4241-8f0b-3af01614f2c7)
 
-### `npm run build` fails to minify
+**Deleting Item**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![whiledeletingitem](https://github.com/rana1997abdullah/AmazonClonewithReact/assets/121580204/da577a4c-ad76-4ebb-9755-0156fde48200)
+
+**After Deleting Item** 
+
+![afterdeleting](https://github.com/rana1997abdullah/AmazonClonewithReact/assets/121580204/b1aa1c2a-be79-499c-99af-ba34ef7071b4)
+
+**Empty Cart**
+
+![cartempty](https://github.com/rana1997abdullah/AmazonClonewithReact/assets/121580204/bb11419d-9122-4a47-bd68-b2b30dc859c7)
+
+**Cart without loggedIn user**
+
+![emptycartwithoutloggedIn](https://github.com/rana1997abdullah/AmazonClonewithReact/assets/121580204/57f00f5f-0239-4654-9d10-22ea4a40b6e5)
+
+**Not Found Page** 
+
+![pageNotFound](https://github.com/rana1997abdullah/AmazonClonewithReact/assets/121580204/ab3eb172-07a9-452f-98a7-f523c4d81d61)
+
+### I Used **react-router-dom** for routing and this is the Routes Component
+
+![routescmp](https://github.com/rana1997abdullah/AmazonClonewithReact/assets/121580204/75ce8032-2569-4e68-97cc-231618e84d6f)
+
+Also I used **Material-UI** as the UI kit with React.js and Use styled from material-UI for styling material-UI components 
+
+![materialuistyled](https://github.com/rana1997abdullah/AmazonClonewithReact/assets/121580204/39d776c4-1b5c-432f-aa62-95110f10787e)
+
+I Used **Firebase** for backend 
+
+
+
+Products List in firebase
+
+![image](https://github.com/rana1997abdullah/AmazonClonewithReact/assets/121580204/3b181e52-0972-4f06-91b1-470ffc4cb762)
+
+**And here is  a short demo shows the amazon clone with explanation about how it works**
+
+https://drive.google.com/file/d/1mBpVQV84GUZLE3q6RDJSik9lxI2sK3A-/view?usp=sharing
+
+here is the github repository and the main branch is the master branch
+
+https://github.com/rana1997abdullah/FinalReactProject.git
+
