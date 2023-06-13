@@ -106,7 +106,4 @@ Products List in firebase
 
 https://drive.google.com/file/d/1mBpVQV84GUZLE3q6RDJSik9lxI2sK3A-/view?usp=sharing
 
-here is the github repository and the main branch is the master branch
-
-https://github.com/rana1997abdullah/FinalReactProject.git
 
