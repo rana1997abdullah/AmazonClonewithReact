@@ -24,10 +24,11 @@ const SearchComp = ({ data }) => {
   const navigate = useNavigate();
   let arr = [];
   useEffect(() => {
-    Object.keys(data).map((el, index) => {
-      Object.values(data[el]).map((ele) => arr.push(ele));
-    });
-
+    
+      Object.keys(data).map((el, index) => {
+        Object.values(data[el]).map((ele) => arr.push(ele));
+      });
+    
     setData(arr);
   }, [data]);
   useEffect(() => {
@@ -58,6 +59,7 @@ const SearchComp = ({ data }) => {
       : navigate("/productslist", { state: { categoryType: categoryType } });
   };
   const handleSelectItem = (e) => {
+    e.preventDefault()
     const selectedValue = filteredData.filter(
       (el) => el.title === e.target.value
     )[0];

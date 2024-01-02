@@ -32,7 +32,7 @@ const CartProduct = ({ product }) => {
     let totalNumber = 0;
     onValue(startRef, (snapshot) => {
       const res = snapshot.val();
-      const currentUserId = getCurrentUser().uid;
+      const currentUserId = getCurrentUser() ?getCurrentUser().uid:null;
       Object.values(res)
         .filter((el) => el.userId === currentUserId && el.title === product.title)
         .map((el) => {
@@ -62,7 +62,7 @@ const CartProduct = ({ product }) => {
   };
   const handleQuantityChange = (e, product) => {
     setquantity(Number(e.target.value));
-    const obj = { ...product, quantity: Number(e.target.value) };
+    const obj = { ...product,userId:getCurrentUser().uid, quantity: Number(e.target.value) };
     let timerInterval;
     Swal.fire({
       title: "Changing quantity",

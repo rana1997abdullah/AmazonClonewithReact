@@ -9,10 +9,10 @@ import HomePage from "../HomePage";
 import { CookiesProvider, useCookies } from "react-cookie";
 import ProductDetailsPage from "../../pages/ProductDetailsPage";
 import CartPage from "../../pages/cartPage";
-import { getCurrentUser } from "../firebase";
+import StartFirebase, { getCurrentUser } from "../firebase";
 import instance from "../firebase/instance";
 import NotFoundPage from "../../pages/NotFoundPage";
-
+import { onValue, ref } from "firebase/database";
 function RoutesCmp() {
   const [cookies, setCookie, removeCookie] = useCookies(["user"]);
   const checkIsSignedIn = localStorage.getItem("isSignedIn") || "";
@@ -21,6 +21,8 @@ function RoutesCmp() {
   const [totalPrice, setTotalPrice] = useState(0);
   const [totalNumberItems, setTotalNumberItems] = useState(0);
   const [loading, setLoading] = useState(false);
+  const[user,setUser] = useState(localStorage.getItem("user")||"");
+  const[loggedIn,setLoggedIn]= useState();
 
   const formatPostData = (response) => {
     let fetchedArr = [];
@@ -59,6 +61,23 @@ function RoutesCmp() {
   useEffect(() => {
     localStorage.setItem("isSignedIn", isSignedIn);
   }, [isSignedIn]);
+  useEffect(() => {
+    const existsUser = getCurrentUser();
+    setLoggedIn(existsUser ? true : false);
+    const startRef = ref(StartFirebase(), "Users");
+    console.log('user',getCurrentUser());
+    if (getCurrentUser()) {
+      onValue(startRef, (snapshot) => {
+        const res = snapshot.val();
+        const userId = getCurrentUser().uid;
+        let userItem = Object.values(res).filter((el) => el.userId === userId);
+         console.log(userItem)
+        setLoggedIn(isSignedIn);
+        localStorage.setItem("user", userItem[0]);
+        setUser(userItem[0]);
+      });
+    }
+  }, [getCurrentUser()]);
   const signIn = () => {
     setIsSignedIn(!isSignedIn);
   };
@@ -70,6 +89,7 @@ function RoutesCmp() {
             path="/"
             element={
               <Home
+              username={user.username}
                 cookies={cookies}
                 setCookie={setCookie}
                 removeCookie={removeCookie}
